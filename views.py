@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 import datetime
-
 # import template system
 #from django.template.loader import get_template
 #from django.template import Context
