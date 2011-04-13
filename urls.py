@@ -1,7 +1,9 @@
 from django.conf.urls.defaults import *
 
-from views import *
-from books import views 
+from views import * 
+from books.views import search
+from contact.views import contact,thanks
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,5 +20,7 @@ urlpatterns = patterns('',
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
 	(r'^meta/$',show_meta),
-	(r'^search/$',views.search),
+	(r'^search/$',search),
+	(r'^contact/$',contact),
+	(r'^contact/thanks/$',thanks),
 )
