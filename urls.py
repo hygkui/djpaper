@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 
-from djtest.views import *
-from djtest.books import views 
+from views import *
+from books import views 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from djtest.books.models import Publisher ,Author,Book
+from books.models import Publisher ,Author,Book
 
 class AuthorAdmin(admin.ModelAdmin):
 	list_display = ( 'first_name' , 'last_name' , 'email' )
