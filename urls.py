@@ -18,6 +18,6 @@ urlpatterns = patterns('',
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
 	(r'^meta/$',show_meta),
-	(r'^search_form/$',views.search_form),
+	(r'^search_form/$',views.search),
 	(r'^search/$',views.search),
 )
