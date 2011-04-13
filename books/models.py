@@ -14,6 +14,8 @@ class Publisher(models.Model):
 		return self.name
 	class Meta:
 		ordering=["name"]
+	class Admin:
+		pass
 
 class Author(models.Model):
 	salutation = models.CharField(max_length=10)
@@ -23,8 +25,10 @@ class Author(models.Model):
 	headShot = models.ImageField(upload_to='/tmp')
 
 	def __str__(self):
-		return '%s %s' % (self.name , self.last_name)
-	
+		return '%s %s' % (self.first_name , self.last_name)
+	class Admin:
+		pass
+
 class Book(models.Model):
 	title = models.CharField(max_length=100)
 	author = models.ManyToManyField(Author)
@@ -35,6 +39,10 @@ class Book(models.Model):
 
 	def __str__(self):
 		return self.title
+	class Admin:
+		list_display = ( 'title' , 'publisher' , 'publication_date ' )
+		list_filter = ( 'publisher' , 'publication_date' )
+		ordering = ( '-publication_date',)
+		search_fields = ('title' , )
 	
-
 

@@ -46,7 +46,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/tmp/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -69,11 +69,11 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-   # 'django.middleware.common.CommonMiddleware',
-   # 'django.contrib.sessions.middleware.SessionMiddleware',
-   # 'django.middleware.csrf.CsrfViewMiddleware',
-   # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-   # 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 ROOT_URLCONF = 'djtest.urls'
@@ -86,13 +86,13 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-   # 'django.contrib.auth',
-   # 'django.contrib.contenttypes',
-   # 'django.contrib.sessions',
+   'django.contrib.auth',
+   'django.contrib.contenttypes',
+   'django.contrib.sessions',
    # 'django.contrib.sites',
    # 'django.contrib.messages',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 	'djtest.books',	

@@ -1,0 +1,13 @@
+<html>
+<body>
+<table>
+{% for k in values %}
+	<tr>
+		{% for v in k%}
+			<td> {{ v }} </td> 
+		{% endfor %}
+	</tr>
+{% endfor %}
+</table>
+</body>
+</html>

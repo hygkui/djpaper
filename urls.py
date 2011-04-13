@@ -1,10 +1,10 @@
 from django.conf.urls.defaults import *
 
 from djtest.views import *
-
+from djtest.books import views 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
@@ -14,7 +14,10 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
+	(r'^meta/$',show_meta),
+	(r'^search_form/$',views.search_form),
+	(r'^search/$',views.search),
 )
