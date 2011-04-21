@@ -98,4 +98,5 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 	'books',	
 	'contact',
+	'djpaper',
 )
