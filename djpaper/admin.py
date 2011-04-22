@@ -22,6 +22,7 @@ class TagAdmin(admin.ModelAdmin):
 	fields = ('title',)
 admin.site.register(People)
 admin.site.register(Department)
+admin.site.register(DepartmentChild)
 admin.site.register(Paper)
 admin.site.register(Pic)
 admin.site.register(Tag,TagAdmin)

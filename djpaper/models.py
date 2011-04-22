@@ -35,7 +35,7 @@ class DepartmentChild(models.Model):
 
 class Paper(models.Model):
 	title = models.CharField(max_length=100)
-	author = models.ForeignKey(People)
+	author = models.ManyToManyField(People)
 	pic = models.ManyToManyField('Pic')
 	publication = models.ForeignKey('Publication')
 	pub_date = models.DateField()
