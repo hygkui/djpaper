@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} show the departments {% endblock %}
+{% block _title %}  <h1> All departments </h1> {% endblock %}
+{% block content %}
+	{% if error %}
+		<p style="color:red;" > no department exists! </p>
+	{% else %}
+		<ul>
+			{% for dep in departments %}
+				
+				<li> {{ dep.name }} </i>
+			{% endfor %}
+		</ul>
+	{% if print_ %}
+			<ul>
+				{% for p in print_ %}
+					<li> {{ p }} </li>
+				{% endfor %}
+			</ul>
+	{% endif %}
+
+	{% endif %}
+{% endblock %}

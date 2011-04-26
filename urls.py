@@ -3,7 +3,7 @@ from django.conf.urls.defaults import *
 from views import * 
 from books.views import search
 from contact.views import contact,thanks
-
+from djpaper.views import show_all_papers,show_departments,print_deps
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -23,4 +23,6 @@ urlpatterns = patterns('',
 	(r'^search/$',search),
 	(r'^contact/$',contact),
 	(r'^contact/thanks/$',thanks),
+	(r'^paper/$',show_all_papers),
+	(r'^department/$',show_departments),
 )

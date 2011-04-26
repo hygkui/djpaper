@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} show all the papers {% endblock %}
+
+{% block _title %} <h1> All the Papers </h1> {% endblock %}
+
+{% block content %}
+
+	{% if error  %}
+		<p style="color:red;"> no paper exists! </p>
+	{% else %}
+		<ul>	
+			{% for paper in papers %}
+				<li> {{ paper.title }} </i>
+			{% endfor%}
+		</ul>	
+	{% endif %}
+{%	endblock %}
+
