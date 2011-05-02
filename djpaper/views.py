@@ -31,5 +31,22 @@ def print_deps(dep):
 		else: 
 			return dep.name
 
+def show_paper(request):
+	error = False
+	if q in request.GET and request.GET['q']:
+		q = request.GET['q']
+		paper = Paper.objects.filter(title__icontains=q)
+		return render_to_response('show_paper.html',{'paper':paper,'query':q})
+	else:
+		error = True
+	return render_to_response('show_paper.html',{'error':error })
 
+def search_paper(request,q):
+	error = False
+	title = ''+q
+	paper = Paper.objects.filter(title__icontains = q )
+	return render_to_response('show_paper.html',{'paper':paper})
+
+			 
+	
 	
