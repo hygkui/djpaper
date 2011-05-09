@@ -10,7 +10,7 @@
 	{% else %}
 		<ul>	
 			{% for paper in papers %}
-				<li> {{ paper.title }} </i>
+				<li> <a href="{{ paper.id }}" > {{ paper.title }} </a> </i>
 			{% endfor%}
 		</ul>	
 	{% endif %}

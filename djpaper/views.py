@@ -41,12 +41,25 @@ def show_paper(request):
 		error = True
 	return render_to_response('show_paper.html',{'error':error })
 
+def show_paper_by_id(request,paper_id):
+	error = False
+	paper = Paper.objects.all().get(id=paper_id)
+	if paper :	
+		return render_to_response('show_paper.html',{'paper':paper,})
+	else:
+		error = True
+		return render_to_response('show_paper.html',{'error':error })
+
+
 def search_paper(request,q):
 	error = False
 	title = ''+q
 	paper = Paper.objects.filter(title__icontains = q )
 	return render_to_response('show_paper.html',{'paper':paper})
 
-			 
+def add_paper(request):
+	info="Just for test"
+	return render_to_response('add_paper.html',{'info':info})
+
 	
 	

@@ -22,4 +22,7 @@ def show_meta(request):
 	values = request.META.items()
 	values.sort()
 	return render_to_response('show_meta.html',{'values':values})
-	
+
+def about(request):
+	info = ''
+	return render_to_response('about.html',{'info':info})	

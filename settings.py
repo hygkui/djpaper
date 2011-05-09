@@ -100,3 +100,6 @@ INSTALLED_APPS = (
 	'contact',
 	'djpaper',
 )
+
+STATIC_PATH='./static'
+

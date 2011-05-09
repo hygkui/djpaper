@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %} show the paper {% endblock %}
 
-{% block _title %} <h1> The Paper you wanted </h1> {% endblock %}
+{% block _title %} <h1> The Paper you wanted  </h1>
+{% endblock %}
 
 {% block content %}
 
@@ -9,9 +10,18 @@
 		<p style="color:red;"> no paper exists! </p>
 	{% else %}
 		<ul>	
-			{% for paper in papers %}
-				<li> {{ paper.title }} </i>
-			{% endfor%}
+				<li> {{ paper.title }}</li>
+				<hr/>	
+				created by 
+				{% for au in paper.author.all %}
+					<a href="#">{{ au }} </a>
+				{% endfor %} 
+				
+				<br/>publisher : {{ paper.publication }} 
+				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
+				pic : {{ paper.pic.all }} <br/>
+				Tag : <font color='pink'>  {{ paper.tag.all }} </font> <br/>
+				
 		</ul>	
 	{% endif %}
 {%	endblock %}

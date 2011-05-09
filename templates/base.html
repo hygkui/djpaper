@@ -1,17 +1,21 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html lang="en">
 	<head >
-		<title> {% block title %} {% endblock %} </title>
+		<title> {% block title %} 页面标题 {% endblock %} </title>
+		<link rel="stylesheet" type="text/css" href="../static/css/base.css" />
 	</head>
 	<body>
 		{% block _title %} 
-			<h1>Add something in the _title </h1>
+			<h1>Add something in the _title 这个是设置页面的第一行标题 </h1>
 		 {% endblock %}
 		{% block content %} {% endblock %}
 		
 		{% block footer %}
 			<hr/>
-			<p> Thanks for visting my site. </p>
+			<p> Thanks for visting my site.<br/>
+			 Created by ghh <br/>
+			 Copyright(c)2011-2015<br/>
+			 Tel:+086 029 84706459</p>
 		{% endblock %}
 	</body>
 </html>
