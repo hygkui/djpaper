@@ -5,7 +5,7 @@ from django.db import models
 class People(models.Model):
 	name = models.CharField(max_length=30)
 	departTree = models.ForeignKey('Department')
-	headshot = models.ImageField(upload_to='/tmp/')
+	headshot = models.ImageField(upload_to='/tmp/people')
 			
 	def __unicode__(self):
 		return self.name
@@ -14,15 +14,7 @@ class Account(models.Model):
 	name = models.CharField(max_length=32)
 	pswd = models.CharField(max_length=32)
 	department = models.ForeignKey('Department')
-	mode = models.ManyToManyField('ModeAuth')
-
-	def __unicode__(self):
-		return self.name
-
-class ModeAuth(models.Model):
-	name = models.CharField(max_length=32)
-	value = models.IntegerField()
-
+	
 	def __unicode__(self):
 		return self.name
 	
@@ -37,19 +29,30 @@ class Department(models.Model):
 class Paper(models.Model):
 	title = models.CharField(max_length=100)
 	author = models.ManyToManyField(People)
-	pic = models.ManyToManyField('Pic')
 	publication = models.ForeignKey('Publication')
 	pub_date = models.DateField()
 	tag = models.ManyToManyField('Tag')
-	abstract = models.CharField(max_length=1000)
+	abstract = models.TextField()
 
 	def __unicode__(self):
 		return self.title
-
+	
+	def get_ab_url(self):
+		return "/paper/%i/" % self.id
+	def all_the_authors(self):
+		_author = ""
+		for au in self.author.all():
+			_author += au.name+"; "	
+		return "%s " % _author   
+	def all_the_tags(self):
+		_tag=""
+		for t in self.tag.all():
+			_tag += t.title + "; "
+		return "%s" % _tag 
 class Pic(models.Model):
 	upload_date = models.DateField()
-	author = models.ForeignKey(People)
-	image = models.ImageField(upload_to='/tmp')
+	paper = models.ForeignKey(Paper)
+	image = models.ImageField(upload_to='images/%Y/%m/%d')
 
 class Tag(models.Model):
 	title = models.CharField(max_length=30)

@@ -19,7 +19,10 @@
 				
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
-				pic : {{ paper.pic.all }} <br/>
+				pic : {% for image in pic.all %}
+						<img src="{{ image.get_ab_url }}"/>
+					  {% endfor %} 
+				 <br/>
 				Tag : <font color='pink'>  {{ paper.tag.all }} </font> <br/>
 				
 		</ul>	

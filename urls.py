@@ -1,7 +1,8 @@
 from django.conf.urls.defaults import *
 
 from django.views.generic import list_detail
-import settings
+from django.conf import settings
+from django.conf.urls.static import static
 from views import * 
 from books.views import search
 from books.models import Publisher
@@ -25,7 +26,8 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-	(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_PATH }),
+#	(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT, }),
+#	(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root':settings.MEDIA_ROOT, }),
     (r'^admin/', include(admin.site.urls)),
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
@@ -41,3 +43,7 @@ urlpatterns = patterns('',
 	(r'^about/$',about),
 	
 )
+
+urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )
+urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT )
+
