@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department
+from djpaper.models import Paper,Department,Pic
 
 def show_all_papers(request):
 	error = False
@@ -35,8 +35,9 @@ def show_paper(request):
 	error = False
 	if q in request.GET and request.GET['q']:
 		q = request.GET['q']
-		paper = Paper.objects.filter(title__icontains=q)
-		return render_to_response('show_paper.html',{'paper':paper,'query':q})
+		_paper = Paper.objects.filter(title__icontains=q)
+		pic = Pic.objects.filter(paper=_paper.title)
+		return render_to_response('show_paper.html',{'paper':_paper,'query':q,'pic':pic})
 	else:
 		error = True
 	return render_to_response('show_paper.html',{'error':error })
@@ -44,8 +45,9 @@ def show_paper(request):
 def show_paper_by_id(request,paper_id):
 	error = False
 	paper = Paper.objects.all().get(id=paper_id)
+	pic = Pic.objects.all().filter(paper=paper_id) 
 	if paper :	
-		return render_to_response('show_paper.html',{'paper':paper,})
+		return render_to_response('show_paper.html',{'paper':paper,'pic':pic,})
 	else:
 		error = True
 		return render_to_response('show_paper.html',{'error':error })
