@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department,Pic
+from djpaper.models import Paper,Department,Pic,People
 
 def show_all_papers(request):
 	error = False
@@ -31,26 +31,15 @@ def print_deps(dep):
 		else: 
 			return dep.name
 
-def show_paper(request):
-	error = False
-	if q in request.GET and request.GET['q']:
-		q = request.GET['q']
-		_paper = Paper.objects.filter(title__icontains=q)
-		pic = Pic.objects.filter(paper=_paper.title)
-		return render_to_response('show_paper.html',{'paper':_paper,'query':q,'pic':pic})
-	else:
-		error = True
-	return render_to_response('show_paper.html',{'error':error })
-
 def show_paper_by_id(request,paper_id):
 	error = False
 	paper = Paper.objects.all().get(id=paper_id)
 	pic = Pic.objects.all().filter(paper=paper_id) 
 	if paper :	
-		return render_to_response('show_paper.html',{'paper':paper,'pic':pic,})
+		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,})
 	else:
 		error = True
-		return render_to_response('show_paper.html',{'error':error })
+		return render_to_response('show_paper_by_id.html',{'error':error })
 
 
 def search_paper(request,q):
@@ -59,9 +48,29 @@ def search_paper(request,q):
 	paper = Paper.objects.filter(title__icontains = q )
 	return render_to_response('show_paper.html',{'paper':paper})
 
-def add_paper(request):
-	info="Just for test"
-	return render_to_response('add_paper.html',{'info':info})
+def show_all_people(request):
+	error = False
+	people = People.objects.all()
+	if people:
+		return render_to_response('show_all_people.html',{'people':people})
+	else:
+		error = True
+		return render_to_response('show_all_people',{'error':error})
 
-	
-	
+def show_people_by_id(reqeuest,p_id):
+	error = False
+	people = People.objects.all().get(id=p_id)
+	paper = Paper.objects.all().filter(author=p_id)
+	if people:
+		department = people.departTree
+		lvl = department.level
+		_departTree = ""
+		while lvl:
+			_departTree = department.name + ">" +  _departTree
+			department = department.parent
+			lvl = lvl - 1
+		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,})
+	else:
+		return render_to_response('show_people_by_id.html',{'error':error})
+ 
+

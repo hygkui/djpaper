@@ -5,10 +5,12 @@ from django.db import models
 class People(models.Model):
 	name = models.CharField(max_length=30)
 	departTree = models.ForeignKey('Department')
-	headshot = models.ImageField(upload_to='/tmp/people')
+	headshot = models.ImageField(upload_to='images/people/%Y%m%d')
 			
 	def __unicode__(self):
 		return self.name
+	def get_ab_url(self):
+		return "/people/%s/" % self.id
 
 class Account(models.Model):
 	name = models.CharField(max_length=32)

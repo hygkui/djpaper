@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %} show the people {% endblock %}
+
+{% block _title %} <h1> The people you wanted  </h1>
+{% endblock %}
+
+{% block content %}
+
+	{% if error  %}
+		<p style="color:red;"> no people exists! </p>
+	{% else %}
+		<ul>	
+				<li> {{ people.name }}</li>
+				<hr/>
+				<li> {{ departTree }} </li>
+			<img src="	{{ people.headshot.url }}" />
+		<hr/>
+			<li> work out papers list </li>
+				{% for p in paper %}
+					<a href="{{ p.get_ab_url }}">{{ p.title }}</a><br/>
+				{% endfor %}	
+		</ul>	
+	{% endif %}
+{%	endblock %}
+

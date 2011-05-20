@@ -14,7 +14,7 @@
 				<hr/>	
 				created by 
 				{% for au in paper.author.all %}
-					<a href="#">{{ au }} </a>
+					<a href="/people/{{ au.id }}">{{ au }} </a>
 				{% endfor %} 
 				
 				<br/>publisher : {{ paper.publication }} 

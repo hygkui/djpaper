@@ -7,7 +7,7 @@ from views import *
 from books.views import search
 from books.models import Publisher
 from contact.views import contact,thanks
-from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,add_paper
+from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -37,8 +37,9 @@ urlpatterns = patterns('',
 	(r'^contact/thanks/$',thanks),
 	(r'^paper/$',show_all_papers),
 	(r'^paper/(\d+)/$',show_paper_by_id),
+	(r'^people/$',show_all_people),
+	(r'^people/(\d+)/$',show_people_by_id),
 	(r'^department/$',show_departments),
-	(r'^paper/add/$',add_paper),
 	(r'^publishers/$',list_detail.object_list,pulisher_info),
 	(r'^about/$',about),
 	

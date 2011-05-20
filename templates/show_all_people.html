@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} show all the people {% endblock %}
+
+{% block _title %} <h1> All the People </h1> {% endblock %}
+
+{% block content %}
+
+	{% if error  %}
+		<p style="color:red;"> no people exists! </p>
+	{% else %}
+		<ul>	
+			{% for p in people %}
+				<li> <a href="{{ p.get_ab_url }}" > {{ p.name }} </a> </i>
+			{% endfor%}
+		</ul>	
+	
+	{% endif %}
+{%	endblock %}
+
