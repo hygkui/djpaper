@@ -17,10 +17,11 @@ class PaperAdmin(admin.ModelAdmin):
 	raw_id_fields = ['publication',]
 	inlines = [PicInline]
 
-
 class TagAdmin(admin.ModelAdmin):
 	fields = ('title',)
 
+class CommitAdmin(admin.ModelAdmin):
+	list_display = ('content','paper','people','time',)
 
 admin.site.register(People)
 admin.site.register(Department)
@@ -32,4 +33,4 @@ admin.site.register(Publisher)
 admin.site.register(Type)
 admin.site.register(ShortMessage)
 admin.site.register(Account)
-
+admin.site.register(Commit,CommitAdmin)

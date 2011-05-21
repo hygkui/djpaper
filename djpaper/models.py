@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 
 # Create your models here.
@@ -96,4 +97,12 @@ class ShortMessage(models.Model):
 	def __unicode__(self):
 		return self.title
 
+class Commit(models.Model):
+	time = models.DateTimeField(auto_now=True)
+	people = models.ForeignKey(People,related_name='commit_people')
+	content = models.CharField(max_length=1000)
+	paper = models.ForeignKey(Paper,related_name='commit_paper')
+	
+	def __unicode__(self):
+		return u'commit by %s ' % self.people
 	

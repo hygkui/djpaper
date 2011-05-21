@@ -1,7 +1,7 @@
 # Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department,Pic,People
+from djpaper.models import Paper,Department,Pic,People,Commit,ShortMessage
 
 def show_all_papers(request):
 	error = False
@@ -35,8 +35,9 @@ def show_paper_by_id(request,paper_id):
 	error = False
 	paper = Paper.objects.all().get(id=paper_id)
 	pic = Pic.objects.all().filter(paper=paper_id) 
+	commit = Commit.objects.all().filter(paper=paper_id)
 	if paper :	
-		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,})
+		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,'commit':commit,})
 	else:
 		error = True
 		return render_to_response('show_paper_by_id.html',{'error':error })
@@ -61,6 +62,7 @@ def show_people_by_id(reqeuest,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
 	paper = Paper.objects.all().filter(author=p_id)
+	short_msg = ShortMessage.objects.all().filter(dest=p_id)
 	if people:
 		department = people.departTree
 		lvl = department.level
@@ -69,7 +71,7 @@ def show_people_by_id(reqeuest,p_id):
 			_departTree = department.name + ">" +  _departTree
 			department = department.parent
 			lvl = lvl - 1
-		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,})
+		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,'short_msg':short_msg})
 	else:
 		return render_to_response('show_people_by_id.html',{'error':error})
  

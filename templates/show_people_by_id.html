@@ -1,8 +1,12 @@
 {% extends "base.html" %}
-{% block title %} show the people {% endblock %}
+{% load static %}
 
-{% block _title %} <h1> The people you wanted  </h1>
+{% block title %} show the people {% endblock %}
+{% block style %} 
+	<link href="{% get_static_prefix %}css/djpaper.css" type="text/css" rel="stylesheet" />
 {% endblock %}
+	
+{% block _title %} <h1> The people you wanted  </h1>{% endblock %}
 
 {% block content %}
 
@@ -17,8 +21,27 @@
 		<hr/>
 			<li> work out papers list </li>
 				{% for p in paper %}
-					<a href="{{ p.get_ab_url }}">{{ p.title }}</a><br/>
+				{{ forloop.counter }}:	<a href="{{ p.get_ab_url }}">{{ p.title }}</a><br/>
 				{% endfor %}	
+		<hr/>
+		<li>All the Short Messages</li>
+			
+			{% for s_msg in short_msg %}
+				{% if s_msg.isRead %}
+					<font>
+				{% else %}
+					<font style="color:red;">
+				{% endif %}
+				{{ forloop.counter }}:{{ s_msg.title }}
+				<p> {{ s_msg.msg }}</p> 
+				send from <a href="/people/{{ s_msg.source.id }}" >{{ s_msg.source }}</a> at {{ s_msg.msg_date }}.
+				</font>
+				<hr class="whiteGray"/>
+			{% empty %}
+				no short messages here.
+			{% endfor %}
+				
+				
 		</ul>	
 	{% endif %}
 {%	endblock %}

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %} show the paper {% endblock %}
-
+{% block style %}
+<link rel="stylesheet" href="{% get_static_prefix %}css/djpaper.css"
+type="text/css" />
+{% endblock %}
 {% block _title %} <h1> The Paper you wanted  </h1>
 {% endblock %}
 
@@ -20,12 +24,19 @@
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
 				pic : {% for p in pic.all %}
-					{{ p.id  }}
+					{{ forloop.counter  }}
 					<a href="{{ p.image.url }}" ><img height="420" width="280"  src="{{ p.image.url }}"></a>
 					 {% endfor %} 
 				 <br/>
 				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>
-				
+			<hr/>
+				All the commits <br/>
+				{% for c in commit %}
+				<br/>{{ forloop.revcounter }}楼:{{ c.content }}
+					created by <a href="/people/{{ c.people.id }}" >{{ c.people }}</a> at {{ c.time }}
+				{% empty %}
+					 no commits 
+				{% endfor %}
 		</ul>	
 	{% endif %}
 {%	endblock %}
