@@ -1,21 +1,35 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html lang="en">
-	<head >
-		<title> {% block title %} 页面标题 {% endblock %} </title>
-		{% block style %} {% endblock %}
-	</head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+	   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<meta name="author" content="ghh" />
+		<meta name="description" content="djPaper" />
+		<meta name="keywords" content="paper" />
+		<title>  {% block title %} 页面标题 {% endblock %}    </title>	
+		{% load static %}
+		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/global.css" media="screen" />
+		<link rel="shortcut icon" href="{% get_static_prefix %}favicon.ico" />
+		{% block style %} 
+		
+		{% endblock %}
+
+		{% block jsCode %}
+		<script type="text/javascript" src="{% get_static_prefix %}js/textsizer.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/rel.js"></script>
+		{% endblock %}
+	</head>	
+
 	<body>
 		{% block _title %} 
 			<h1>Add something in the _title 这个是设置页面的第一行标题 </h1>
 		 {% endblock %}
 		{% block content %} {% endblock %}
+		<div id="clear"></div>	
+		<div id="footer">	
+		 <p> Thanks for visting my site.<br/>
+		 Copyright(c)2011-2015.Designed by <a href="#" >ghh</a>. Tel:+086 029 84706459. Valid <a href="#">CSS</a> &amp; <a href="#">XHTML</a></p>
+		 
+		</p>
 		
-		{% block footer %}
-			<hr/>
-			<p> Thanks for visting my site.<br/>
-			 Created by ghh <br/>
-			 Copyright(c)2011-2015<br/>
-			 Tel:+086 029 84706459</p>
-		{% endblock %}
 	</body>
 </html>

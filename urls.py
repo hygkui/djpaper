@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 
 from django.views.generic import list_detail
+from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.conf.urls.static import static
 from views import * 
@@ -42,6 +43,7 @@ urlpatterns = patterns('',
 	(r'^department/$',show_departments),
 	(r'^publishers/$',list_detail.object_list,pulisher_info),
 	(r'^about/$',about),
+   	(r'^index/$',direct_to_template, {'template': 'index.html'}),
 	
 )
 
