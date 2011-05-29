@@ -1,7 +1,10 @@
 # Create your views here.
-from django.http import HttpResponse
+from django.core.context_processors import csrf
+from django.template import RequestContext
+from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department,Pic,People,Commit,ShortMessage
+from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm
+#from djpaper.forms import CommitForm
 
 def show_all_papers(request):
 	error = False
@@ -36,8 +39,16 @@ def show_paper_by_id(request,paper_id):
 	paper = Paper.objects.all().get(id=paper_id)
 	pic = Pic.objects.all().filter(paper=paper_id) 
 	commit = Commit.objects.all().filter(paper=paper_id)
+	form = CommitForm()
+	if request.method == 'POST':
+		data = request.POST.copy()#else u cannot change the value of the data
+		data['paper'] = paper_id
+		form = CommitForm(data)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('')
 	if paper :	
-		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,'commit':commit,})
+		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,'commit':commit,'form':form,},RequestContext(request))
 	else:
 		error = True
 		return render_to_response('show_paper_by_id.html',{'error':error })
@@ -58,11 +69,20 @@ def show_all_people(request):
 		error = True
 		return render_to_response('show_all_people',{'error':error})
 
-def show_people_by_id(reqeuest,p_id):
+def show_people_by_id(request,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
 	paper = Paper.objects.all().filter(author=p_id)
 	short_msg = ShortMessage.objects.all().filter(dest=p_id)
+	form = SMForm()	
+	if request.method == "POST":
+		data = request.POST.copy()
+		data['dest'] = p_id
+		data['isRead']=False
+		form = SMForm(data)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('')
 	if people:
 		department = people.departTree
 		lvl = department.level
@@ -71,8 +91,7 @@ def show_people_by_id(reqeuest,p_id):
 			_departTree = department.name + ">" +  _departTree
 			department = department.parent
 			lvl = lvl - 1
-		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,'short_msg':short_msg})
+		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,'short_msg':short_msg,'form':form},RequestContext(request))
 	else:
 		return render_to_response('show_people_by_id.html',{'error':error})
  
-

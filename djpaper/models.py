@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-
+from django.forms import ModelForm,Textarea,TextInput,HiddenInput
 # Create your models here.
 
 class People(models.Model):
@@ -90,13 +90,23 @@ class ShortMessage(models.Model):
 	dest = models.ForeignKey(People,related_name='p_dest')
 	title = models.CharField(max_length=100)
 	msg = models.CharField(max_length=1000)
-	msg_date = models.DateField()
-	isRead = models.BooleanField()
+	msg_date = models.DateField(auto_now=True)
+	isRead = models.BooleanField(default=False)
 	child = models.CharField(max_length=20,default='--to be')
 
 	def __unicode__(self):
 		return self.title
-
+class SMForm(ModelForm):
+	class Meta:
+		model = ShortMessage
+		fields = ('source','dest','title','msg',)
+		widgets = {
+			'msg':Textarea(attrs={'cols':40,'rows':6,}),
+			'dest':HiddenInput(attrs={'value':0}),
+			'msg_date':HiddenInput(),
+		}
+			
+			
 class Commit(models.Model):
 	time = models.DateTimeField(auto_now=True)
 	people = models.ForeignKey(People,related_name='commit_people')
@@ -105,4 +115,18 @@ class Commit(models.Model):
 	
 	def __unicode__(self):
 		return u'commit by %s ' % self.people
+
+#	def save(self,force_insert=False,force_update=False):
+#		if self.time is None:
+#			self.time = datetime.datetime.now()
+#		super(Commit,self).save(force_insert,force_update)
+
+class CommitForm(ModelForm):
+	class Meta:
+		model = Commit
+		fields = ('content','people','paper')
+		widgets = {
+			'content':Textarea(attrs={'cols':40,'rows':6,}),
+			'paper':HiddenInput(attrs={'value':0}),
+		}
 	

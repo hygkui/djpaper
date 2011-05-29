@@ -1,14 +1,18 @@
+{% extends "base.html" %}
 {% load static %}
 {% get_static_prefix as STATIC_PREFIX %}
 
-<h2 style="color:red;">
-<p>
+{% block _title %}
+<h1>Fuck</h1>
+{% endblock %}
+
+{% block content %}
+<h2> <pre>
 I AM YOUR DAD! 
-<br/>Go Back And Fuck Yourself!
-<br/>...
-<br/>WHY?
-<br/>You Mu You?
-<br/>有木有？！！
-</p>
-</h2>
-<img src="{{ STATIC_PREFIX }}images/01.jpg" />
+Go Back And Fuck Yourself!
+...
+WHY?
+You Mu You?
+有木有？！！
+</pre></h2>
+{% endblock %}

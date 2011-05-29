@@ -16,7 +16,7 @@
 				<li> {{ people.name }}</li>
 				<hr/>
 				<li> {{ departTree }} </li>
-			<img src="	{{ people.headshot.url }}" />
+			<img src="	{{ people.headshot.url }}" class="headshot"/>
 		<hr/>
 			<li> work out papers list </li>
 				{% for p in paper %}
@@ -29,7 +29,7 @@
 				{% if s_msg.isRead %}
 					<font>
 				{% else %}
-					<font style="color:red;">
+					<font style="color:pink;">
 				{% endif %}
 				{{ forloop.counter }}:{{ s_msg.title }}
 				<p> {{ s_msg.msg }}</p> 
@@ -39,7 +39,15 @@
 			{% empty %}
 				no short messages here.
 			{% endfor %}
-		</ul>	
+			<form action="" method="post"> {% csrf_token %}
+					<table>
+						{{ form.as_table }}
+					</table>
+					<input type="submit" value="submit">
+				</form>
+	
+	</ul>	
 	{% endif %}
+	
 {%	endblock %}
 

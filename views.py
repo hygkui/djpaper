@@ -1,8 +1,5 @@
 from django.http import HttpResponse
 import datetime
-# import template system
-#from django.template.loader import get_template
-#from django.template import Context
 
 # import shortcuts
 from django.shortcuts import render_to_response #there is no need to import template modules. this module is emough!

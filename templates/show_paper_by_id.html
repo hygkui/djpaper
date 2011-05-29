@@ -2,8 +2,6 @@
 {% load static %}
 {% block title %} show the paper {% endblock %}
 {% block style %}
-<link rel="stylesheet" href="{% get_static_prefix %}css/djpaper.css"
-type="text/css" />
 {% endblock %}
 {% block _title %} <h1> The Paper you wanted  </h1>
 {% endblock %}
@@ -25,7 +23,7 @@ type="text/css" />
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
 				pic : {% for p in pic.all %}
 					{{ forloop.counter  }}
-					<a href="{{ p.image.url }}" ><img height="420" width="280"  src="{{ p.image.url }}"></a>
+					<!--a href="{{ p.image.url }}" ><img height="420" width="280"  src="{{ p.image.url }}" class="paper"/></a-->
 					 {% endfor %} 
 				 <br/>
 				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>
@@ -37,6 +35,12 @@ type="text/css" />
 				{% empty %}
 					 no commits 
 				{% endfor %}
+				<form action="" method="post"> {% csrf_token %}
+					<table >
+						{{ form.as_table }}
+					</table>
+					<input type="submit" value="submit">
+				</form>
 		</ul>	
 	{% endif %}
 {%	endblock %}

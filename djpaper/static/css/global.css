@@ -7,10 +7,10 @@
 
 body {
 	margin: 0px;
-	background: url(../img/top_bg.gif);
+	background: url(../images/top_bg.gif);
 	background-repeat: repeat-x;
 	font-family: Verdana, Arial, sans-serif;
-        font-size: .6em;
+        font-size: 1em;
 }
 
 p {
@@ -27,14 +27,15 @@ h2 {
 }
 
 ul {
-	font-size: 10px;
+	font-size: 15px;
 	margin:0;
 	padding:0;
-	list-style-image: url(../img/bullet.gif);
+	list-style-image: url(../images/bullet.gif);
 }
 
 a {
 	color: #93B300;
+	text-decoration: none;
 }
 /**** add by ghh start--***/
 a:hover
@@ -42,10 +43,16 @@ a:hover
   background:#333;
 }
 
-img {
+img.paper {
 border:0px;
+width:100px;
+height:160px;
 }
-
+img.headshot {
+border:0px;
+width:100px;
+height:120px;
+}
 hr.thin {
 height: 1px;
 border: 0;
@@ -81,7 +88,7 @@ blockquote{
 #wrap {
        margin-left: auto;
        margin-right: auto;
-       width: 730px;
+       width: 930px;
 }
 
 
@@ -92,7 +99,7 @@ blockquote{
 	width: 100%;
 	height: 88px;
 	color: #fff;
-	background: #000 url(../img/top_bg.gif);
+	background: #000 url(../images/top_bg.gif);
 	overflow:hidden;
 }
 
@@ -106,7 +113,7 @@ blockquote{
 	top:33px;
 	display:block;
 	float:left;
-	background: url(../img/bg_t.gif) no-repeat;
+	background: url(../images/bg_t.gif) no-repeat;
 	padding-left: 10px;
 }
 
@@ -150,13 +157,13 @@ blockquote{
 * html #menu a {width:1%;}
 
 #menu li a:hover {
-	background: url(../img/bg_menu.gif);
+	background: url(../images/bg_menu.gif);
 }
 
 #menu li a.current {
 	letter-spacing: 1px;
 	color: gray;
-	background: url(../img/bg_menu.gif);
+	background: url(../images/bg_menu.gif);
 }
 
 #menu li a.current:hover {
@@ -191,7 +198,7 @@ blockquote{
 }
 
 #left {
-	width: 390px;
+	width: 590px;
 	float:left;
 	display: block;
        margin-left: 20px;
@@ -210,7 +217,7 @@ blockquote{
 }
 
 #right .box {
-	width: 24em;/*280px*/
+	width: 240px;/*280px*/
 	background: #F6F9FB;
 	border: 1px solid #E1E1E1;
 	padding:10px 10px 15px 10px;
@@ -259,7 +266,7 @@ blockquote{
 
 #nav a:hover{
 	color: #1a1a1a;
-	background: url(../img/bg_t.gif) no-repeat;
+	background: url(../images/bg_t.gif) no-repeat;
 	background-color: #fff;
 	font-weight: bold;
 	}	
