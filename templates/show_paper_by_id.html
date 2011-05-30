@@ -22,8 +22,7 @@
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
 				pic : {% for p in pic.all %}
-					{{ forloop.counter  }}
-					<!--a href="{{ p.image.url }}" ><img height="420" width="280"  src="{{ p.image.url }}" class="paper"/></a-->
+					<a href="{{ p.image.url }}" ><img src="{{ p.image.url }}" class="paper"/></a>
 					 {% endfor %} 
 				 <br/>
 				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>
