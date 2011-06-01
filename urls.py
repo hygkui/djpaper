@@ -3,6 +3,7 @@ from django.views.generic import list_detail
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import login,logout
 from views import * 
 from books.views import search
 from books.models import Publisher
@@ -43,6 +44,9 @@ urlpatterns = patterns('',
 	(r'^publishers/$',list_detail.object_list,pulisher_info),
 	(r'^about/$',about),
    	(r'^index/$',direct_to_template, {'template': 'index.html'}),
+	(r'^accounts/login/$',login),
+	(r'^accounts/logout/$',logout),
+	(r'^accounts/profile/$',direct_to_template,{'template':'registration/welcome.html'})
 	
 )
 

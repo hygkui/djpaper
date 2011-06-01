@@ -124,6 +124,9 @@ INSTALLED_APPS = (
 )
 
 
+LOGIN_REDIRECT_URL='/accounts/profile/'
+
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
