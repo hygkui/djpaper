@@ -298,3 +298,22 @@ blockquote{
 	margin: 0px;
 	padding: 0;
 }
+
+/*** for tag-cloud ***/
+#tag-cloud
+{
+	text-align: center ;
+}
+
+#tag-cloud a {
+	margin:0 0.2em;
+	text-decoration:none;
+}
+
+.tag-cloud-0 { font-size:100% ;}
+.tag-cloud-1 { font-size:120%; }
+.tag-cloud-2 { font-size:140%; }
+.tag-cloud-3 { font-size:160%; }
+.tag-cloud-4 { font-size:180%; }
+.tag-cloud-5 { font-size:200%; }
+

@@ -1,0 +1,31 @@
+BODY {
+	PADDING: 0px 0px 0px 0px;
+	FONT-WEIGHT: normal; 
+	FONT-SIZE: 80%; 
+	BACKGROUND: #fff; 
+	MARGIN: 0px; 
+	COLOR: #c95000; 
+	FONT-FAMILY: "Arial Unicode MS", Arial, Helvetica, sans-serif
+	}
+	HTML {	FONT-SIZE: 100% }
+	
+	#mainbody { MARGIN: 10px }
+	.TitleSection { FONT-SIZE: 2em; MARGIN: 0px; COLOR: #999; BORDER-BOTTOM: #ccc 1px solid }
+	#tagmargin {MARGIN: 15px;line-height:250%;}
+	#branding {margin:20px 10px 0px 10px;color:#999;border-top:1px solid #ccc;text-align:right;padding:3px 10px 0px 0px;font-size:9px;FONT-FAMILY: verdana;}
+	.size7 { FONT-SIZE: 0.9em }
+	.size6 { FONT-SIZE: 1.3em }
+	.size5 { FONT-SIZE: 1.7em }
+	.size4 { FONT-SIZE: 2.1em }
+	.size3 { FONT-SIZE: 2.5em }
+	.size2 { FONT-SIZE: 2.9em }
+	.size1 { FONT-SIZE: 3.3em }
+	.size7c { FONT-SIZE: 0.9em; COLOR: #69c }
+	.size6c { FONT-SIZE: 1.2em; COLOR: #69c }
+	.size5c { FONT-SIZE: 1.5em; COLOR: #69c }
+	.size4c { FONT-SIZE: 1.8em; COLOR: #369 }
+	.size3c { FONT-SIZE: 2.1em; COLOR: #c95000 }
+	.size2c { FONT-SIZE: 2.4em; COLOR: #c95000 }
+	.size1c { FONT-SIZE: 2.7em; COLOR: #c95000 }
+	.size1c { FONT-SIZE: 2.7em; COLOR: #c95000 }
+
