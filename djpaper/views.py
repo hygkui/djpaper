@@ -1,16 +1,17 @@
 # Create your views here.
 from django.core.context_processors import csrf
+from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag
+from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag,RegistrationForm
 #from djpaper.forms import CommitForm
 
 def show_all_papers(request):
 	error = False
 	papers = Paper.objects.all()
 	if papers:
-		return render_to_response('show_all_papers.html',{'papers':papers } )
+		return render_to_response('show_all_papers.html',{'papers':papers } ,RequestContext(request))
 	else:
 		error = True
 		return render_to_response('show_all_papers.html',{'error':error})
@@ -22,7 +23,7 @@ def show_departments(request):
 	if departments:
 		for dep in departments:
 			print_.append( print_deps(dep) )
-		return render_to_response('show_departments.html',{'departments':departments,'print_':print_ } )
+		return render_to_response('show_departments.html',{'departments':departments,'print_':print_ }  ,RequestContext(request))
 	else:
 		error = True
 		return render_to_response('show_departments.html',{'error':error})
@@ -58,13 +59,13 @@ def search_paper(request,q):
 	error = False
 	title = ''+q
 	paper = Paper.objects.filter(title__icontains = q )
-	return render_to_response('show_paper.html',{'paper':paper})
+	return render_to_response('show_paper.html',{'paper':paper} ,RequestContext(request))
 
 def show_all_people(request):
 	error = False
 	people = People.objects.all()
 	if people:
-		return render_to_response('show_all_people.html',{'people':people})
+		return render_to_response('show_all_people.html',{'people':people} ,RequestContext(request))
 	else:
 		error = True
 		return render_to_response('show_all_people',{'error':error})
@@ -120,3 +121,18 @@ def tag_cloud_page(request):
 	})
 	return render_to_response('tag_cloud_page.html',vars)
 
+def register(request):
+	if request.method == 'POST':
+		form = RegistrationForm(request.POST)
+		if form.is_valid():
+			user = User.objects.create_user(
+				username = form.cleaned_data['username'],
+				password = form.cleaned_data['password1'],
+				email = form.cleaned_data['email']
+			)
+			return HttpResponseRedirect('/register/success/')
+	else :
+		form = RegistrationForm()
+	variables = RequestContext(request, { 'form':form} )
+
+	return render_to_response('registration/register.html',variables)

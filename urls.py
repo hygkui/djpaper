@@ -3,12 +3,12 @@ from django.views.generic import list_detail
 from django.views.generic.simple import direct_to_template
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import login,logout
-from views import * 
+from django.contrib.auth.views import login
+from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
 from books.views import search
 from books.models import Publisher
 from contact.views import contact,thanks
-from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,tag_cloud_page
+from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,tag_cloud_page,register
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -44,10 +44,13 @@ urlpatterns = patterns('',
 	(r'^department/$',show_departments),
 	(r'^publishers/$',list_detail.object_list,pulisher_info),
 	(r'^about/$',about),
-   	(r'^index/$',direct_to_template, {'template': 'index.html'}),
+   	(r'^index/$',index),
+	(r'^/$',index),
 	(r'^accounts/login/$',login),
-	(r'^accounts/logout/$',logout),
-	(r'^accounts/profile/$',direct_to_template,{'template':'registration/welcome.html'})
+	(r'^accounts/logout/$',logout_page),
+	(r'^accounts/register/$',register),
+	(r'^accounts/profile/$',direct_to_template,{'template':'registration/welcome.html'}),
+	(r'^register/success/$',direct_to_template,{'template':'registration/register_success.html'}),
 	
 )
 

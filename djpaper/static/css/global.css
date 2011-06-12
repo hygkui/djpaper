@@ -217,11 +217,11 @@ blockquote{
 }
 
 #right .box {
-	width: 240px;/*280px*/
+	width: 290px;/*280px*/
 	background: #F6F9FB;
 	border: 1px solid #E1E1E1;
 	padding:10px 10px 15px 10px;
-	float: right;
+	float:left ;
 }
 
 #right .box h2 {
@@ -233,7 +233,7 @@ blockquote{
 #right .box a {
 	margin: 10px 0 10px 0;
 	color: #93B300;
-	font-size: 10px;
+	font-size: 13px;
 }
 
 #right .box p {
@@ -248,6 +248,8 @@ blockquote{
 
 #right .box li {
 	margin-top:5px;
+	font-size:10px;
+	color:gray;
 }
 
 #nav{ list-style: none; margin: 2.0em 0; width: 25em; float: right;}
@@ -269,7 +271,7 @@ blockquote{
 	background: url(../images/bg_t.gif) no-repeat;
 	background-color: #fff;
 	font-weight: bold;
-	}	
+}	
 
 /**** Clear Div ***/
 
@@ -300,20 +302,24 @@ blockquote{
 }
 
 /*** for tag-cloud ***/
-#tag-cloud
+#right .tag-cloud
 {
-	text-align: center ;
+	background: #F6F9FB;
+	border: 0px solid #E1E1E1;
+	padding:10px 10px 15px 10px;
+	text-align: left ;
+	
 }
 
-#tag-cloud a {
+#right .tag-cloud a {
 	margin:0 0.2em;
 	text-decoration:none;
+	color:#c95000;
 }
-
-.tag-cloud-0 { font-size:100% ;}
-.tag-cloud-1 { font-size:120%; }
-.tag-cloud-2 { font-size:140%; }
-.tag-cloud-3 { font-size:160%; }
-.tag-cloud-4 { font-size:180%; }
-.tag-cloud-5 { font-size:200%; }
+.tag-cloud-0 { font-size:10px;}
+.tag-cloud-1 { font-size:12px;}
+.tag-cloud-2 { font-size:14px;}
+.tag-cloud-3 { font-size:16px;}
+.tag-cloud-4 { font-size:18px;}
+.tag-cloud-5 { font-size:20px;}
 
