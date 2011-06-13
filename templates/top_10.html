@@ -1,5 +1,5 @@
 <ul>
-{% for p in papers %}
+{% for p in top_10_papers %}
 	<li><a href="{{ p.get_ab_url }}" >{{ p.title }}</a>[{{ p.pub_date }}]</li>
 {% endfor %}
 </ul>

@@ -55,13 +55,14 @@
 				 {% endblock %}
 			</div>
 			<div id="right">
+					{% load siderbar %}
 					<table style="border:0px;">
 						<tr><td>
-		     				{% include "tag_cloud_page.html" %}
+							{% get_tag_cloud %}			
 					 	</td></tr>
 						<tr><td><div class="box">
-					  <h2 style="margin-top:17px">Recent Entries</h2>
-						{% include "top_10.html" %}
+					  <h2 style="margin-top:17px">Recent Entries(<font style="color:#9255ee;">Top 10</font>)</h2>
+						{% get_top_10_paper %}
 		          </div>
 					</td></tr>
 				</table>
