@@ -2,7 +2,7 @@ from django.template import Library
 from django import template
 from django.shortcuts import get_object_or_404
 from djpaper.models import Tag,Paper
-from djpaper.utils import tag_cloud_cal
+from djpaper.tag_utils import tag_cloud_cal
 
 register = Library()
 

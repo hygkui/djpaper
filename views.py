@@ -1,6 +1,5 @@
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth import logout
-import datetime
 from django.template import RequestContext
 from djpaper.models import Paper,Tag
 # import shortcuts

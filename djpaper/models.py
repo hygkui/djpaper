@@ -2,9 +2,11 @@
 from django.db import models
 from django.forms import ModelForm,Textarea,TextInput,HiddenInput
 from django import forms
-import re
+from settings import MEDIA_ROOT
+import re,os
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from djpaper.field import ImageWithThumbnailField
 # Create your models here.
 
 class People(models.Model):
@@ -56,11 +58,17 @@ class Paper(models.Model):
 		for t in self.tag.all():
 			_tag += t.title + "; "
 		return "%s" % _tag 
+
+UPLOAD_ROOT = 'images/%Y/%m/%d'
+THUMB_ROOT = 'thumbnails/%Y/%m%d'
+
 class Pic(models.Model):
 	upload_date = models.DateField()
 	paper = models.ForeignKey(Paper)
-	image = models.ImageField(upload_to='images/%Y/%m/%d')
+	image = ImageWithThumbnailField(upload_to=UPLOAD_ROOT)
 
+	def get_image_url(self):
+		return "%s" % self.image.url
 class Tag(models.Model):
 	title = models.CharField(max_length=30)
 	times = models.IntegerField(default=1)

@@ -1,5 +1,5 @@
 <div class="tag-cloud">	
 {% for tag in tags %}
-		<a href="/tag/{{ tag.title }}" title="{{ tag.count }}" class="tag-cloud-{{ tag.weight }}">
+		<a href="/tag/{{ tag.title }}" title="{{ tag.count }}主题" class="tag-cloud-{{ tag.weight }}">
 		{{ tag.title }}</a>
 	{% endfor %}</div>

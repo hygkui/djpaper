@@ -1,6 +1,6 @@
 # Django settings for djtest project.
 import os.path
-
+import string
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -145,3 +145,5 @@ LOGGING = {
     }
 }
 
+#CACHE_BACKEND = string.join(['file://',HERE,'dj_cache','?timeout=60&max_entries=400'])
+CACHE_BACKEND = 'file:///home/ghh/dj/cache_backend?timeout=60&max_entries=400'

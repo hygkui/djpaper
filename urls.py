@@ -8,7 +8,7 @@ from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
 from books.views import search
 from books.models import Publisher
 from contact.views import contact,thanks
-from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,tag_cloud_page,register
+from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -36,7 +36,6 @@ urlpatterns = patterns('',
 	(r'^search/$',search),
 	(r'^contact/$',contact),
 	(r'^contact/thanks/$',thanks),
-	(r'^tag/$',tag_cloud_page),
 	(r'^paper/$',show_all_papers),
 	(r'^paper/(\d+)/$',show_paper_by_id),
 	(r'^people/$',show_all_people),

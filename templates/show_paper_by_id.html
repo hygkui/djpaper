@@ -20,8 +20,15 @@
 				
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
-				pic : {% for p in pic.all %}
-					<a href="{{ p.image.url }}" ><img src="{{ p.image.url }}" class="paper"/></a>
+			 <br/>					<!-- 2011.06.19 需要用path，而不能用url，因为使用Image的thumbnail函数时候，先用Image.open(img_url)，这里的
+						img_url必须是unicode的，而不是转义过的string[汉语变为%xx什么的]，否则会报错，no such file or directory,
+						所以这里要用path这个unicode路径来表示-->
+	
+					pic缩略图 :
+					{% load thumbnail %}
+					 {% for p in pic.all %}
+				<a href="{{ p.image.url}}" ><img src="{{ p.image.path|thumbnail:"width=50,height=50"  }}" class="paper"/></a>
+								
 					 {% endfor %} 
 				 <br/>
 				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>

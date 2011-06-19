@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag,RegistrationForm
-#from djpaper.forms import CommitForm
+from django.views.decorators.cache import cache_page
 
 def show_all_papers(request):
 	error = False
@@ -35,6 +35,7 @@ def print_deps(dep):
 		else: 
 			return dep.name
 
+@cache_page( 60 * 15 )
 def show_paper_by_id(request,paper_id):
 	error = False
 	paper = Paper.objects.all().get(id=paper_id)
@@ -70,6 +71,7 @@ def show_all_people(request):
 		error = True
 		return render_to_response('show_all_people',{'error':error})
 
+@cache_page( 60 * 15 )
 def show_people_by_id(request,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
@@ -95,31 +97,6 @@ def show_people_by_id(request,p_id):
 		return render_to_response('show_people_by_id.html',{'people':people,'departTree':_departTree,'paper':paper,'short_msg':short_msg,'form':form},RequestContext(request))
 	else:
 		return render_to_response('show_people_by_id.html',{'error':error})
-
-
-def tag_cloud_page(request):
-	MAX_WEIGHT = 5
-	tags = Tag.objects.order_by('title')
-	min_count = max_count = tags[0].paper_set.count() 
-	for tag in tags:
-		tag.count = tag.paper_set.count()
-		if tag.count < min_count:
-			min_count = tag.count
-		if tag.count > max_count:
-			max_count = tag.count
-	# calculate count range ,avoid dividing by zero.	
-	range = float( max_count - min_count )
-	if range == 0.0:
-		range = 1.0
-	#calculate tag weight
-	for tag in tags:
-		tag.weight = int(
-			MAX_WEIGHT * (tag.count - min_count ) / range
-		)
-	vars = RequestContext( request , {
-		'tags':tags
-	})
-	return render_to_response('tag_cloud_page.html',vars)
 
 def register(request):
 	if request.method == 'POST':
