@@ -6,7 +6,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render_to_response
 from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag,RegistrationForm
 from django.views.decorators.cache import cache_page
-
+from djpaper.forms import SearchForm
 def show_all_papers(request):
 	error = False
 	papers = Paper.objects.all()
@@ -56,11 +56,7 @@ def show_paper_by_id(request,paper_id):
 		return render_to_response('show_paper_by_id.html',{'error':error })
 
 
-def search_paper(request,q):
-	error = False
-	title = ''+q
-	paper = Paper.objects.filter(title__icontains = q )
-	return render_to_response('show_paper.html',{'paper':paper} ,RequestContext(request))
+
 
 def show_all_people(request):
 	error = False
@@ -113,3 +109,28 @@ def register(request):
 	variables = RequestContext(request, { 'form':form} )
 
 	return render_to_response('registration/register.html',variables)
+
+def search_paper(request):
+	form = SearchForm()
+	papers = []
+	show_results = False
+	if request.GET.has_key('query'):
+		show_results = True
+		query = request.GET['query'].strip()
+		result_summary=""
+		if query:
+			form = SearchForm( {'query' : query })
+			papers = Paper.objects.filter(title__icontains=query)
+	variables = RequestContext(request,{'form':form,
+			'papers':papers,
+			'show_tags':True,
+			'show_results':show_results,
+			'show_user':True,
+			'result_summary':result_summary
+		})
+	#RequestContext(request,{  })
+	if request.GET.has_key('ajax'):
+		return render_to_response('paper_list.html',variables)
+	else:
+		return render_to_response('search.html',variables)
+

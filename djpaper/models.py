@@ -2,7 +2,7 @@
 from django.db import models
 from django.forms import ModelForm,Textarea,TextInput,HiddenInput
 from django import forms
-from settings import MEDIA_ROOT
+from settings import MEDIA_ROOT,DOMAIN_NAME
 import re,os
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -58,7 +58,9 @@ class Paper(models.Model):
 		for t in self.tag.all():
 			_tag += t.title + "; "
 		return "%s" % _tag 
-
+	#for feeds
+	def get_absolute_url(self):
+		return DOMAIN_NAME + self.get_ab_url()
 UPLOAD_ROOT = 'images/%Y/%m/%d'
 THUMB_ROOT = 'thumbnails/%Y/%m%d'
 

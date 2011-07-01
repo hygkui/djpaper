@@ -5,10 +5,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import login
 from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
-from books.views import search
 from books.models import Publisher
 from contact.views import contact,thanks
-from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register
+from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register,search_paper
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,6 +17,13 @@ pulisher_info = {
 	'queryset':Publisher.objects.all(),
 	'template_name':'publisher_list_page.html',
 }
+
+from djpaper.feeds import *
+
+feeds = {
+	'recent':RecentPapers
+}
+
 
 urlpatterns = patterns('',
     # Example:
@@ -33,7 +39,7 @@ urlpatterns = patterns('',
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
 	(r'^meta/$',show_meta),
-	(r'^search/$',search),
+	(r'^search/$',search_paper),
 	(r'^contact/$',contact),
 	(r'^contact/thanks/$',thanks),
 	(r'^paper/$',show_all_papers),
@@ -51,6 +57,8 @@ urlpatterns = patterns('',
 	(r'^accounts/profile/$',direct_to_template,{'template':'registration/welcome.html'}),
 	(r'^register/success/$',direct_to_template,{'template':'registration/register_success.html'}),
 	
+	#for feeds 
+	(r'^feeds/(?P<url>.*)/$','django.contrib.syndication.views.feed',{'feed_dict':feeds}),	
 )
 
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )

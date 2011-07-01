@@ -13,27 +13,31 @@
 		{% block style %} 
 		
 		{% endblock %}
-
+		
+		{% block external %}
+		<link rel="alternate" type="application/rss+xml" title="Django Papers | Recent Papers" href="/feeds/recent/" />
+		{% endblock %}
 		{% block jsCode %}
 		<script type="text/javascript" src="{% get_static_prefix %}js/textsizer.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/rel.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/menu.js"></script>
-
-		{% endblock %}
+		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.js"></script>
+	{% endblock %}
 	</head>	
 
 	<body>
 	<div id="wrap">
 		<div id="top">
-			<h2><a href="/index" title="back to main page">DiPaper [V1]</a></h2>
+			<h2><a href="/index" title="back to main page">DjPaper [V1]</a></h2>
 													
 
 			<div id="menu">
 				<ul>
-						 <li><a id="menu1" class="current" href="/index" onclick="javascript:doClick(this)" >home</a></li>
-						 <li><a id="menu2" class="no" href="/people" onmousedown="javascript:doClick('menu2')">People</a></li>
-						 <li><a id="menu3" class="no" href="/paper" onclick="javascript:doClick(this)">Paper</a></li>
-						 <li><a id="menu4" class="no" href="/about" onClick="javascript:doClick(this)">About</a></li>
+						 <li><a id="menu1"  href="/index" >home</a></li>
+						 <li><a id="menu2"  href="/people" >People</a></li>
+						 <li><a id="menu3"  href="/paper" >Paper</a></li>
+						 <li><a id="menu4"  href="/search">Search</a></li>
+						 <li><a id="menu5"  href="/about" >About</a></li>
 				</ul>
 			 </div>
 		 </div>
@@ -60,7 +64,7 @@
 						<tr><td>
 							{% get_tag_cloud %}			
 					 	</td></tr>
-						<tr><td><div class="box">
+						<tr><td><div class="box" id='top_10_box'>
 					  <h2 style="margin-top:17px">Recent Entries(<font style="color:#9255ee;">Top 10</font>)</h2>
 						{% get_top_10_paper %}
 		          </div>

@@ -5,6 +5,8 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 HERE = os.path.dirname(os.path.abspath(__file__))
 
+DOMAIN_NAME = 'http://localhost:8000'
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )

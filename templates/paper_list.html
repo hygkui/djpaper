@@ -1,18 +1,13 @@
-{% extends "base.html" %}
-{% block title %} show all the papers {% endblock %}
-
-{% block _title %} <h1> All the Papers </h1> {% endblock %}
-
 {% block content %}
-
-	{% if error  %}
-		<p style="color:red;"> no paper exists! </p>
-	{% else %}
+		{% if papers.count > 0 %}
+		<p style="color:gray;">find out <strong style="color:red;">{{ papers.count }}</strong> paper{{ papers.count|pluralize }} </p>
 		<ul>	
 			{% for paper in papers %}
-				<li> {{ paper.title }} </i>
+				<li><a href="{{ paper.get_ab_url }}"> {{ paper.title }} </a> </i>
 			{% endfor%}
 		</ul>	
-	{% endif %}
+		{% else %}
+		<p style="color:gray;">nothing is found for your input;<br/> sorry for that ~~ :(</p>	
+		{% endif %}
 {%	endblock %}
 

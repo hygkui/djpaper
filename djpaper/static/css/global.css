@@ -166,6 +166,10 @@ blockquote{
 	background: url(../images/bg_menu.gif);
 }
 
+#menu li a.normal {
+	letter-spacing:1px;
+}
+
 #menu li a.current:hover {
 	color: #fff;
 }
