@@ -9,11 +9,24 @@
 		<p style="color:red;"> no paper exists! </p>
 	{% else %}
 		<ul>	
-			{% for paper in papers %}
+			{% for paper in papers.object_list %}
+			<!-- Changed in Django Development version: Previously, you would need to use \{\% for contact in contacts.object_list \%\}, since the Page object was not iterable. -->
 				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a> </i>
 			{% endfor%}
 		</ul>	
 	
 	{% endif %}
+	<hr/>
+		<div class="paginator"	>
+			{% if papers.has_pervious %}
+				<a href="?page={{ papers.previous_page_number }}">&laquo;Pervious</a>
+			{% endif %}
+			<span class="current">
+				Page {{ papers.number }} of {{ papers.paginator.num_pages }}.
+			</span>
+			{% if papers.has_next %}
+				<a href="?page={{ papers.next_page_number }}">Next &raquo;</a>
+			{% endif %}
+		</div>	
 {%	endblock %}
 

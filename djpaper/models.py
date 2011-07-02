@@ -12,7 +12,7 @@ from djpaper.field import ImageWithThumbnailField
 class People(models.Model):
 	name = models.CharField(max_length=30)
 	departTree = models.ForeignKey('Department')
-	headshot = models.ImageField(upload_to='images/people/%Y%m%d')
+	headshot = models.ImageField(upload_to='images/people/%Y%m%d',blank=True)
 			
 	def __unicode__(self):
 		return self.name
@@ -40,8 +40,8 @@ class Paper(models.Model):
 	author = models.ManyToManyField(People)
 	publication = models.ForeignKey('Publication')
 	pub_date = models.DateField()
-	tag = models.ManyToManyField('Tag')
-	abstract = models.TextField()
+	tag = models.ManyToManyField('Tag',blank=True)
+	abstract = models.TextField(blank=True)
 
 	def __unicode__(self):
 		return self.title
@@ -61,6 +61,7 @@ class Paper(models.Model):
 	#for feeds
 	def get_absolute_url(self):
 		return DOMAIN_NAME + self.get_ab_url()
+
 UPLOAD_ROOT = 'images/%Y/%m/%d'
 THUMB_ROOT = 'thumbnails/%Y/%m%d'
 
@@ -80,9 +81,9 @@ class Tag(models.Model):
 
 class Publication(models.Model):
 	name = models.CharField(max_length=100)
-	reg = models.CharField(max_length=100)
+	reg = models.CharField(max_length=100,blank=True)
 	classType = models.ForeignKey('Type')
-	publisher = models.ForeignKey('Publisher')
+	publisher = models.ForeignKey('Publisher',blank=True)
 
 	def __unicode__(self):
 		return self.name
@@ -94,10 +95,10 @@ class Publisher(models.Model):
 		return self.name
 
 class Type(models.Model):
-	name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
 
-	def __unicode__(self):
-		return self.name
+    def __unicode__(self):
+        return self.name
 
 class ShortMessage(models.Model):
 	source  = models.ForeignKey(People,related_name='p_source')

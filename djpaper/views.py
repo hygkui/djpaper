@@ -2,19 +2,33 @@
 from django.core.context_processors import csrf
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.shortcuts import render_to_response
 from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag,RegistrationForm
 from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
+from django.db.models import Q
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+ITEMS_PER_PAGE = 10
+
+
 def show_all_papers(request):
-	error = False
-	papers = Paper.objects.all()
-	if papers:
-		return render_to_response('show_all_papers.html',{'papers':papers } ,RequestContext(request))
+	query_set = Paper.objects.all()
+	paginator = Paginator(query_set,ITEMS_PER_PAGE)
+	if request.GET.has_key('page'):
+		page = request.GET.get('page')
 	else:
-		error = True
-		return render_to_response('show_all_papers.html',{'error':error})
+		page = 1
+	try:
+		papers = paginator.page(page)
+	except PageNotAnInteger:
+		papers = paginator.page(1)
+	except EmptyPage:
+		papers = paginator.page(paginator.num_pages)
+	variables = RequestContext(request,{
+		'papers':papers,
+	})
+	return render_to_response('show_all_papers.html',variables)
 
 def show_departments(request):
 	error = False
@@ -117,16 +131,18 @@ def search_paper(request):
 	if request.GET.has_key('query'):
 		show_results = True
 		query = request.GET['query'].strip()
-		result_summary=""
 		if query:
+			keywords = query.split()	
+			q = Q()
+			for keyword in keywords:
+				q = q & Q(title__icontains=keyword)
 			form = SearchForm( {'query' : query })
-			papers = Paper.objects.filter(title__icontains=query)
+			papers = Paper.objects.filter(q)
 	variables = RequestContext(request,{'form':form,
 			'papers':papers,
 			'show_tags':True,
 			'show_results':show_results,
 			'show_user':True,
-			'result_summary':result_summary
 		})
 	#RequestContext(request,{  })
 	if request.GET.has_key('ajax'):
