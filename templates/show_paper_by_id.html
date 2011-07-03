@@ -17,7 +17,7 @@
 				{% for au in paper.author.all %}
 					<a href="/people/{{ au.id }}">{{ au }} </a>
 				{% endfor %} 
-				
+				<br/>pub date : {{ paper.pub_date|date:"Y年n月" }} 
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
 			 <br/>					<!-- 2011.06.19 需要用path，而不能用url，因为使用Image的thumbnail函数时候，先用Image.open(img_url)，这里的

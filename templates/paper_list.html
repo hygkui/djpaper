@@ -1,6 +1,6 @@
 {% block content %}
 		{% if papers.object_list.count > 0 %}
-		<p style="color:gray;">find out <strong style="color:red;">{{ papers.count }}</strong> paper{{ papers.count|pluralize }} </p>
+		<p style="color:gray;">find out <strong style="color:red;">{{ papers.object_list.count }}</strong> paper{{ papers.object_list.count|pluralize }} </p>
 		<ul>	
 			{% for paper in papers.object_list %}
 				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 

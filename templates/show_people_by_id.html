@@ -15,7 +15,11 @@
 		<ul>	
 				<li> {{ people.name }}</li>
 				<hr/>
-				<li> {{ departTree }} </li>
+				{% if departTree %} 
+				<li>{{ departTree }}</li>
+				{% else %}
+				<li> {{ people.departTree }} </li>
+				{% endif %}
 			<img src="	{{ people.headshot.url }}" class="headshot"/>
 		<hr/>
 			<li> work out papers list </li>

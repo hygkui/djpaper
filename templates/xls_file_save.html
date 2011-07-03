@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form id="xls-form" enctype="multipart/form-data" method="post" >{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="come on"/>
+	</form>
+	<div id="results" >
+		{% if show_results %}
+			result is :	<br/>
+			<p style="color:gray;"> <strong style="color:red;">{{ count }}</strong> paper{{ count|pluralize }} added!</p>
+			<hr/>
+		         {% for paper in papers %}
+				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
+				{% for au in paper.author.all %}
+					<a href="/people/{{ au.id }}">{{ au }} </a> 
+				{% endfor %} ) </i>
+			{% endfor%}
+
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+

@@ -149,3 +149,7 @@ LOGGING = {
 
 #CACHE_BACKEND = string.join(['file://',HERE,'dj_cache','?timeout=60&max_entries=400'])
 CACHE_BACKEND = 'file:///home/ghh/dj/cache_backend?timeout=60&max_entries=400'
+
+
+FILE_UPLOAD_HANDLERS =("django.core.files.uploadhandler.TemporaryFileUploadHandler",)	
+

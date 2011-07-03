@@ -1,6 +1,16 @@
 {% extends "base.html" %}
 {% block title %} show all the papers {% endblock %}
-
+{% block style %}
+	<script type="text/javascript">
+	function go_t_page(){
+		var t_page=document.getElementById("t_page").value; 
+		var loc = "/paper/?page="
+		loc=loc.concat(t_page);
+		//for test: alert(loc);
+		window.location=loc;
+	};
+	</script>
+{% endblock %}
 {% block _title %} <h1> All the Papers </h1> {% endblock %}
 
 {% block content %}
@@ -8,14 +18,16 @@
 	{% if error  %}
 		<p style="color:red;"> no paper exists! </p>
 	{% else %}
-		<ul>	
+		<ul>
+			<font color="gray">	
 			{% for paper in papers.object_list %}
 			<!-- Changed in Django Development version: Previously, you would need to use \{\% for contact in contacts.object_list \%\}, since the Page object was not iterable. -->
 				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
 				{% for au in paper.author.all %}
 					<a href="/people/{{ au.id }}">{{ au }} </a>
-				{% endfor %} ) </i>
+				{% endfor %} @{{ paper.pub_date|date:"Y-m" }}) </i>
 			{% endfor%}
+			</font>
 		</ul>	
 	
 	{% endif %}
@@ -25,11 +37,13 @@
 				<a href="?page={{ papers.previous_page_number }}">&laquo;Pervious</a>
 			{% endif %}
 			<span class="current">
-				Page {{ papers.number }} of {{ papers.paginator.num_pages }}.
+				Page {{ papers.number }} of {{ papers.paginator.num_pages }}
 			</span>
 			{% if papers.has_next %}
 				<a href="?page={{ papers.next_page_number }}">Next &raquo;</a>
 			{% endif %}
+		|	<font color="gray">  想更快？何不试试跳楼 :)  
+				<input type="text" size="2" id="t_page"/></font> <input type="submit" value="扑通一下" onclick="go_t_page();"/>
 		</div>	
 {%	endblock %}
 

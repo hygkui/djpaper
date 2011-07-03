@@ -7,5 +7,6 @@ class SearchForm(forms.Form):
 	)
 
 
-
+class XlsSaveForm(forms.Form):
+	file = forms.FileField()
 

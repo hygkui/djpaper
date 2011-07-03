@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
 from django.db.models import Q
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-ITEMS_PER_PAGE = 20
+ITEMS_PER_PAGE = 15
 
 
 def show_all_papers(request):
