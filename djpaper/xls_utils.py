@@ -22,28 +22,17 @@ def get_excel_data(xls_file):
 		orig_data.append(temp)
 	return orig_data	
 
-
-def _xls_file_save(request):
-	data = get_excel_data('/home/ghh/dj/djpaper/simple.xls')
-	count = 0
-	for each_line in data:
-		if _xls_each_line_save(each_line):
-			count = count + 1
-	variables=RequestContext(request,{
-		'paper':'ok',
-		'count':count
-	})
-	return render_to_response('xls_file.html',variables)
-
 def _xls_each_line_save(each_line):
 	flag_rtn = 0	
 	#create or get paper
 	_department,dp_dummy = Department.objects.get_or_create(name=each_line[0],level=0)
 	_people,po_dummy = People.objects.get_or_create(name=each_line[1],departTree=_department)
 	_classType,ct_dummy = Type.objects.get_or_create(name=each_line[6])
+	#warning!!!
 	_publisher,plr_dummy = Publisher.objects.get_or_create(name="unknown")
 	_publication,pl_dummy = Publication.objects.get_or_create(name=each_line[3],reg=each_line[4],classType=_classType,publisher=_publisher)
-			
+
+	#warning!!!		
 	date=datetime.datetime.now()	
 	paper,p_dummy = Paper.objects.get_or_create(
 		title=each_line[2],
@@ -55,4 +44,15 @@ def _xls_each_line_save(each_line):
 	paper.author.add(_people)
 	paper.save()
 	return flag_rtn
+
+def _xls_file_save(request):
+	data = get_excel_data('/home/ghh/dj/djpaper/simple.xls')
+	count = 0
+	for each_line in data:
+		if _xls_each_line_save(each_line):
+			count = count + 1
+	variables=RequestContext(request,{
+		'count':count
+	})
+	return render_to_response('xls_file.html',variables)
 
