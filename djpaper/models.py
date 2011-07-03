@@ -29,14 +29,14 @@ class Account(models.Model):
 	
 class Department(models.Model):
 	parent = models.ForeignKey('self',blank=True,null=True)
-	name = models.CharField(max_length=30)
+	name = models.CharField(max_length=50)
 	level = models.IntegerField() 
 
 	def __unicode__(self):
 		return self.name
 
 class Paper(models.Model):
-	title = models.CharField(max_length=100)
+	title = models.CharField(max_length=200)
 	author = models.ManyToManyField(People)
 	publication = models.ForeignKey('Publication')
 	pub_date = models.DateField()
@@ -61,6 +61,10 @@ class Paper(models.Model):
 	#for feeds
 	def get_absolute_url(self):
 		return DOMAIN_NAME + self.get_ab_url()
+	#for class type
+	def get_class_type(self):
+		return self.publication.classType
+	
 
 UPLOAD_ROOT = 'images/%Y/%m/%d'
 THUMB_ROOT = 'thumbnails/%Y/%m%d'
@@ -80,8 +84,8 @@ class Tag(models.Model):
 		return self.title
 
 class Publication(models.Model):
-	name = models.CharField(max_length=100)
-	reg = models.CharField(max_length=100,blank=True)
+	name = models.CharField(max_length=200)
+	reg = models.CharField(max_length=200,blank=True)
 	classType = models.ForeignKey('Type')
 	publisher = models.ForeignKey('Publisher',blank=True)
 

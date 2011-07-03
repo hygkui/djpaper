@@ -8,7 +8,7 @@ register = Library()
 
 @register.inclusion_tag('top_10.html',takes_context=True)
 def get_top_10_paper(context,number=10):
-	papers = Paper.objects.all()
+	papers = Paper.objects.all().order_by('-id')
 	if number > len(papers):
 		number = len(papers)
 	return {'top_10_papers':papers[:number]}

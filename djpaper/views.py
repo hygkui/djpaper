@@ -9,11 +9,11 @@ from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
 from django.db.models import Q
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-ITEMS_PER_PAGE = 10
+ITEMS_PER_PAGE = 20
 
 
 def show_all_papers(request):
-	query_set = Paper.objects.all()
+	query_set = Paper.objects.all().order_by('-id')
 	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
@@ -73,19 +73,28 @@ def show_paper_by_id(request,paper_id):
 
 
 def show_all_people(request):
-	error = False
-	people = People.objects.all()
-	if people:
-		return render_to_response('show_all_people.html',{'people':people} ,RequestContext(request))
+	query_set = People.objects.all().order_by('-id')
+	paginator = Paginator(query_set,ITEMS_PER_PAGE)
+	if request.GET.has_key('page'):
+		page = request.GET.get('page')
 	else:
-		error = True
-		return render_to_response('show_all_people',{'error':error})
+		page = 1
+	try:
+		people = paginator.page(page)
+	except PageNotAnInteger:
+		people = paginator.page(1)
+	except EmptyPage:
+		people = paginator.page(paginator.num_pages)
+	variables = RequestContext(request,{
+		'people':people,
+	})
+	return render_to_response('show_all_people.html',variables)
 
 @cache_page( 60 * 15 )
 def show_people_by_id(request,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
-	paper = Paper.objects.all().filter(author=p_id)
+	paper = Paper.objects.all().filter(author=p_id).order_by('-id')
 	short_msg = ShortMessage.objects.all().filter(dest=p_id)
 	form = SMForm()	
 	if request.method == "POST":
@@ -137,14 +146,25 @@ def search_paper(request):
 			for keyword in keywords:
 				q = q & Q(title__icontains=keyword)
 			form = SearchForm( {'query' : query })
-			papers = Paper.objects.filter(q)
+			query_set = Paper.objects.filter(q).order_by('-id')
+			paginator = Paginator(query_set,ITEMS_PER_PAGE)
+			if request.GET.has_key('page'):
+				page = request.GET.get('page')
+			else:
+				page = 1
+			try:
+				papers = paginator.page(page)
+			except PageNotAnInteger:
+				papers = paginator.page(1)
+			except EmptyPage:
+				papers = paginator.page(paginator.num_pages)
+		
 	variables = RequestContext(request,{'form':form,
 			'papers':papers,
 			'show_tags':True,
 			'show_results':show_results,
-			'show_user':True,
+            'show_user':True,
 		})
-	#RequestContext(request,{  })
 	if request.GET.has_key('ajax'):
 		return render_to_response('paper_list.html',variables)
 	else:

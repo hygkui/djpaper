@@ -11,14 +11,17 @@
 		<ul>	
 			{% for paper in papers.object_list %}
 			<!-- Changed in Django Development version: Previously, you would need to use \{\% for contact in contacts.object_list \%\}, since the Page object was not iterable. -->
-				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a> </i>
+				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
+				{% for au in paper.author.all %}
+					<a href="/people/{{ au.id }}">{{ au }} </a>
+				{% endfor %} ) </i>
 			{% endfor%}
 		</ul>	
 	
 	{% endif %}
 	<hr/>
 		<div class="paginator"	>
-			{% if papers.has_pervious %}
+			{% if papers.has_previous %}
 				<a href="?page={{ papers.previous_page_number }}">&laquo;Pervious</a>
 			{% endif %}
 			<span class="current">

@@ -1,10 +1,25 @@
 {% block content %}
-		{% if papers.count > 0 %}
+		{% if papers.object_list.count > 0 %}
 		<p style="color:gray;">find out <strong style="color:red;">{{ papers.count }}</strong> paper{{ papers.count|pluralize }} </p>
 		<ul>	
-			{% for paper in papers %}
-				<li><a href="{{ paper.get_ab_url }}"> {{ paper.title }} </a> </i>
+			{% for paper in papers.object_list %}
+				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
+				{% for au in paper.author.all %}
+					<a href="/people/{{ au.id }}">{{ au }} </a> 
+				{% endfor %} ) </i>
 			{% endfor%}
+		<hr/>
+		<div class="paginator"	>
+			{% if papers.has_previous %}
+				<a href="?page={{ papers.previous_page_number }}">&laquo;Pervious</a>
+			{% endif %}
+			<span class="current">
+				Page {{ papers.number }} of {{ papers.paginator.num_pages }}.
+			</span>
+			{% if papers.has_next %}
+				<a href="?page={{ papers.next_page_number }}">Next &raquo;</a>
+			{% endif %}
+		</div>	
 		</ul>	
 		{% else %}
 		<p style="color:gray;">nothing is found for your input;<br/> sorry for that ~~ :(</p>	

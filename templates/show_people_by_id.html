@@ -20,7 +20,7 @@
 		<hr/>
 			<li> work out papers list </li>
 				{% for p in paper %}
-				{{ forloop.counter }}:	<a href="{{ p.get_ab_url }}">{{ p.title }}</a><br/>
+				{{ forloop.counter }}:	<a href="{{ p.get_ab_url }}">{{ p.title }}</a>({{ p.get_class_type }})<br/>
 				{% endfor %}	
 		<hr/>
 		<li>All the Short Messages</li>
