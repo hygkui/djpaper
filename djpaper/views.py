@@ -73,7 +73,15 @@ def show_paper_by_id(request,paper_id):
 
 
 def show_all_people(request):
-	query_set = People.objects.all().order_by('-id')
+	count = 0
+	show_all = True
+	if request.GET.has_key('name'):
+		query_set = People.objects.filter(name__icontains=request.GET['name'].strip()).order_by('-id')
+		count = len(query_set)
+		show_all = False
+	else:
+		query_set = People.objects.all().order_by('-id')
+	
 	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
@@ -87,6 +95,8 @@ def show_all_people(request):
 		people = paginator.page(paginator.num_pages)
 	variables = RequestContext(request,{
 		'people':people,
+		'show_all':show_all,
+		'count':count
 	})
 	return render_to_response('show_all_people.html',variables)
 
@@ -137,6 +147,7 @@ def search_paper(request):
 	form = SearchForm()
 	papers = []
 	show_results = False
+	count = 0
 	if request.GET.has_key('query'):
 		show_results = True
 		query = request.GET['query'].strip()
@@ -148,6 +159,7 @@ def search_paper(request):
 			form = SearchForm( {'query' : query })
 			query_set = Paper.objects.filter(q).order_by('-id')
 			paginator = Paginator(query_set,ITEMS_PER_PAGE)
+			count = paginator.count
 			if request.GET.has_key('page'):
 				page = request.GET.get('page')
 			else:
@@ -161,6 +173,7 @@ def search_paper(request):
 		
 	variables = RequestContext(request,{'form':form,
 			'papers':papers,
+			'count':count,
 			'show_tags':True,
 			'show_results':show_results,
             'show_user':True,

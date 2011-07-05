@@ -13,18 +13,22 @@
 		<p style="color:red;"> no people exists! </p>
 	{% else %}
 		<ul>	
-				<li> {{ people.name }}</li>
+					<img src="	{{ people.headshot.url }}" class="headshot"/>
+					<li>{{ people.name }}
+						<font color="gray"> ( 
+							<a href="/people/?name={{ people.name }}">同名？</a>
+						) </font>
+					</li>
 				<hr/>
 				{% if departTree %} 
 				<li>{{ departTree }}</li>
 				{% else %}
 				<li> {{ people.departTree }} </li>
 				{% endif %}
-			<img src="	{{ people.headshot.url }}" class="headshot"/>
-		<hr/>
+				<hr/>
 			<li> work out papers list </li>
 				{% for p in paper %}
-				{{ forloop.counter }}:	<a href="{{ p.get_ab_url }}">{{ p.title }}</a>({{ p.get_class_type }})<br/>
+				{{ forloop.counter }}:	<a href="{{ p.get_ab_url }}">{{ p.title }}</a><font color="gray">({{ p.get_class_type }}@{{ p.pub_date|date:"Y-m" }})</font><br/>
 				{% endfor %}	
 		<hr/>
 		<li>All the Short Messages</li>
