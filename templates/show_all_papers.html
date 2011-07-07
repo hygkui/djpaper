@@ -9,15 +9,26 @@
 		//for test: alert(loc);
 		window.location=loc;
 	};
+	function go_t_title(){
+		var t_title=document.getElementById("t_title").value; 
+		var loc = "/paper/?title="
+		loc=loc.concat(t_title);
+		window.location=loc;
+	};
 	</script>
 {% endblock %}
 {% block _title %} <h1> All the Papers </h1> {% endblock %}
 
 {% block content %}
-
-	{% if error  %}
-		<p style="color:red;"> no paper exists! </p>
-	{% else %}
+	<div id="search_paper_by_title" align="center">
+		<font color="gray"> 想找哪篇？	
+	<input type="text" size="32" id="t_title"/>
+		</font>
+	<input type="submit" value="找一下!" onclick="go_t_title();" /> 
+	</div>
+	<br/>
+	{% if count %}
+		{{ count }} papers found.<br/>
 		<ul>
 			<font color="gray">	
 			{% for paper in papers.object_list %}
@@ -30,7 +41,6 @@
 			</font>
 		</ul>	
 	
-	{% endif %}
 	<hr/>
 		<div class="paginator"	>
 			{% if papers.has_previous %}
@@ -45,5 +55,8 @@
 		|	<font color="gray">  想更快？何不试试跳楼 :)  
 				<input type="text" size="2" id="t_page"/></font> <input type="submit" value="扑通一下" onclick="go_t_page();"/>
 		</div>	
+	{% else %}
+		no paper found.
+	{% endif %}
 {%	endblock %}
 

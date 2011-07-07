@@ -1,0 +1,16 @@
+{% block content %}
+		{% if count > 0 %}
+		<p style="color:gray;">find out <strong style="color:red;">{{ count }}</strong> people{{ count|pluralize }} </p>
+		<ul>	
+			{% for people in peoples %}
+				<li> <a href="/people/{{ people.id }}" > {{ people.name }} </a>({{ people.departTree }})</li>		
+			{% endfor%}
+		</ul>
+
+		
+		
+		{% else %}
+		<p style="color:gray;">no one is found for your input;<br/> sorry for that ~~ :(</p>	
+		{% endif %}
+{%	endblock %}
+

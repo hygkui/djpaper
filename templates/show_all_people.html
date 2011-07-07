@@ -20,34 +20,30 @@
 		</font>
 	<input type="submit" value="找一下!" onclick="go_find_people();" /> 
 	</div>
-	{% if show_all %}
-		<ul>	
-			{% for p in people.object_list %}
-				<li> <a href="{{ p.get_ab_url }}" > {{ p.name }} </a>(<font color="gray">{{ p.departTree }}</font>) </i>
-			{% endfor%}
-		</ul>	
-		<hr/>
-		<div class="paginator"	>
-			{% if people.has_previous %}
-				<a href="?page={{ people.previous_page_number }}">&laquo;Pervious</a>
-			{% endif %}
-			<span class="current">
-				Page {{ people.number }} of {{ people.paginator.num_pages }}.
-			</span>
-			{% if people.has_next %}
-				<a href="?page={{ people.next_page_number }}">Next &raquo;</a>
-			{% endif %}
-		</div>
-	{% else %}
+		
 		{% if count %}
+			<font color="red">{{ count }}</font><font color="gray"> people found.</font><br/>
 			<ul>	
 				{% for p in people.object_list %}
 					<li> <a href="{{ p.get_ab_url }}" > {{ p.name }} </a>(<font color="gray">{{ p.departTree }}</font>) </i>
 				{% endfor%}
-			</ul>
+			</ul>	
+			<hr/>
+			<div class="paginator"	>
+				{% if people.has_previous %}
+					<a href="?page={{ people.previous_page_number }}">&laquo;Pervious</a>
+				{% endif %}
+				<span class="current">
+					Page {{ people.number }} of {{ people.paginator.num_pages }}.
+				</span>
+				{% if people.has_next %}
+					<a href="?page={{ people.next_page_number }}">Next &raquo;</a>
+				{% endif %}
+			</div>
+		
 		{% else %}
 			:(  no one found!
 		{% endif %}
-	{% endif %}
+
 {%	endblock %}
 

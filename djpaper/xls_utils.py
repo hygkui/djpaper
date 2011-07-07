@@ -6,7 +6,8 @@ import datetime
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 OPEN_WORKBOOK_ERROR = 'faild to open the workbook'
-from djpaper.forms import XlsSaveForm
+from djpaper.forms import XlsSaveForm,SearchFormName,SearchFormDepartTree
+from django.db.models import Q
 import settings
 
 def get_excel_data(xls_file):
@@ -80,7 +81,43 @@ def _xls_file_save(request):
 	})
 	return render_to_response('xls_file_save.html',variables)
 
-def _xls_file_out(request):
+def _xls_file_out_page(request):
+	show_result_departTree = False
+	show_result_name = False
+	form_departTree = SearchFormDepartTree()
+	form_name = SearchFormName()
+	papers =[]
+	peoples = []
+	if request.GET.has_key('departTree'):
+		show_result_departTree = True
+		query = request.GET['departTree'].strip()
+		form_departTree = SearchFormDepartTree({'departTree':query})
+		if query:
+			keywords = query.split()
+			q = Q()
+			for keyword in keywords:
+				q = q | Q(name__icontains=keyword)
+			depart_obj = Department.objects.filter(q).order_by('id')
+			for depart in depart_obj:
+				for people in depart.people_set.all():
+					peoples.append(people)
+	elif request.GET.has_key('name'):
+		show_result_name = True
+		query = request.GET['name'].strip()
+		form_name = SearchFormName({'name':query})
+		if query:
+			keywords = query.split()
+			q = Q()
+			for keyword in keywords:
+				q = q | Q(name__icontains=keyword)
+			peoples = People.objects.filter(q).order_by('id')
 	variables=RequestContext(request,{
+		'peoples':peoples,
+		'show_result_departTree':show_result_departTree,
+		'show_result_name':show_result_name,
+		'form_name':form_name,
+		'form_departTree':form_departTree,
+		'count':len(peoples)
 	})
 	return render_to_response('xls_file_out.html',variables)
+

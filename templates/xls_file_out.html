@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form id="search-form-departTree" method="get" >
+	{{ form_departTree.as_p }}
+	<input type="submit" value="search "/>
+	</form>
+	<div id="search-result-departTree" >
+		{% if show_result_departTree %}
+			{% include 'people_list.html' %}
+		{% endif %}
+	</div>
+
+	<form id="search-form-name" method="get" >
+	{{ form_name.as_p }}
+	<input type="submit" value="search "/>
+	</form>
+	<div id="search-result-name" >
+		{% if show_result_name %}
+			{% include 'people_list.html' %}
+		{% endif %}
+	</div>
+
+
+{% endblock %}
+

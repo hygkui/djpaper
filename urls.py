@@ -8,7 +8,7 @@ from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
 from books.models import Publisher
 from contact.views import contact,thanks
 from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register,search_paper
-from djpaper.xls_utils import _xls_file_save,_xls_file_out
+from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -57,12 +57,12 @@ urlpatterns = patterns('',
 	(r'^accounts/register/$',register),
 	(r'^accounts/profile/$',direct_to_template,{'template':'registration/welcome.html'}),
 	(r'^register/success/$',direct_to_template,{'template':'registration/register_success.html'}),
-	
+	(r'^advance/$',direct_to_template,{'template':'advance.html'}),
 	#for feeds 
 	(r'^feeds/(?P<url>.*)/$','django.contrib.syndication.views.feed',{'feed_dict':feeds}),	
 	#for xls files read to save
 	(r'^xls/in$',_xls_file_save),
-	(r'^xls/out$',_xls_file_out)
+	(r'^xls/out$',_xls_file_out_page)
 )
 
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )

@@ -13,7 +13,16 @@ ITEMS_PER_PAGE = 15
 
 
 def show_all_papers(request):
-	query_set = Paper.objects.all().order_by('-id')
+	count = 0
+	show_all = True
+	papers=[]
+	if request.GET.has_key('title'):
+		query_set = Paper.objects.filter(title__icontains=request.GET['title'].strip()).order_by('-id')
+		show_all = False
+	else:
+		query_set = Paper.objects.all().order_by('-id')
+
+	count = query_set.count()
 	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
@@ -27,6 +36,7 @@ def show_all_papers(request):
 		papers = paginator.page(paginator.num_pages)
 	variables = RequestContext(request,{
 		'papers':papers,
+		'count':count,
 	})
 	return render_to_response('show_all_papers.html',variables)
 
@@ -77,11 +87,11 @@ def show_all_people(request):
 	show_all = True
 	if request.GET.has_key('name'):
 		query_set = People.objects.filter(name__icontains=request.GET['name'].strip()).order_by('-id')
-		count = len(query_set)
 		show_all = False
 	else:
 		query_set = People.objects.all().order_by('-id')
-	
+
+	count = query_set.count()
 	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
