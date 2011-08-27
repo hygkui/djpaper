@@ -1,0 +1,15 @@
+<a href="TB_inline?height=155&width=400&inlineId=loginWindow" class="thickbox">login </a>
+<div id="loginWindow" style="display:none;" >
+  <form action="/accounts/login/" method="post">{% csrf_token %}
+	<fieldset>
+		<legend>Login in </legend>
+			 <label for="username">User name:</label>
+    		<input type="text" name="username" value="" id="username"><br/>
+   			 <label for="password">Password   : </label>
+    		<input type="password" name="password" value="" id="password">
+	 		<br/>
+    <input type="submit" value="login" />
+	</fieldset>
+    </form>
+</div>
+

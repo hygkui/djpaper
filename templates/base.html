@@ -8,6 +8,8 @@
 		<title >  {% block title %} 页面标题 {% endblock %}    </title>	
 		{% load static %}
 		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/global.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/jquery.autocomplete.css" />
+		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/thickbox.css" />
 		<link rel="shortcut icon" href="{% get_static_prefix %}favicon.ico" />
 		
 		{% block style %} 
@@ -22,6 +24,10 @@
 		<script type="text/javascript" src="{% get_static_prefix %}js/rel.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/menu.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.bgiframe.min.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.ajaxQueue.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/lib/thickbox-compressed.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.autocomplete.js"></script>
 	{% endblock %}
 	</head>	
 
@@ -40,15 +46,16 @@
 						 <li><a id="menu5"  href="/about" >About</a></li>
 				</ul>
 			 </div>
-		 </div>
+			
+					 </div>
 		<div id="content">
 			<div style="float: right;">	
 								{% if user.is_authenticated %}
 									welcome {{ user.username }}(<a href="/accounts/logout/">logout</a>)
-								{% else %}
-									<a href="/accounts/login/">login</a>|
-									<a href="/accounts/register/">register</a>
-								{% endif %}|
+								{% else %}									
+									{% include "login.html" %}| {% include "register.html" %}
+								{% endif %}
+								&nbsp;&nbsp;
 								<a href="javascript:ts('body',1)">[+]</a> | <a href="javascript:ts('body',-1)">[-]</a></div>
 			<div id="left">
 				{% block _title %} 

@@ -2,6 +2,12 @@
 {% block title %} show all the papers {% endblock %}
 {% block style %}
 	<script type="text/javascript">
+	$(document).ready(function () {
+		$("#t_title").autocomplete(
+			'/ajax/title/autocomplete/',
+			{multiple:true,multipleSeparator:' '}
+			);
+		});
 	function go_t_page(){
 		var t_page=document.getElementById("t_page").value; 
 		var loc = "/paper/?page="
@@ -22,7 +28,7 @@
 {% block content %}
 	<div id="search_paper_by_title" align="center">
 		<font color="gray"> 想找哪篇？	
-	<input type="text" size="32" id="t_title"/>
+		<input type="text" size="32" id="t_title" name="title"/>
 		</font>
 	<input type="submit" value="找一下!" onclick="go_t_title();" /> 
 	</div>

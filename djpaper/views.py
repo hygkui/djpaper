@@ -138,6 +138,7 @@ def show_people_by_id(request,p_id):
 		return render_to_response('show_people_by_id.html',{'error':error})
 
 def register(request):
+	form = RegistrationForm()
 	if request.method == 'POST':
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
@@ -147,10 +148,8 @@ def register(request):
 				email = form.cleaned_data['email']
 			)
 			return HttpResponseRedirect('/register/success/')
-	else :
-		form = RegistrationForm()
+	
 	variables = RequestContext(request, { 'form':form} )
-
 	return render_to_response('registration/register.html',variables)
 
 def search_paper(request):
