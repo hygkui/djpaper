@@ -5,9 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import login
 from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
-from books.models import Publisher
 from contact.views import contact,thanks
-from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register,search_paper
+from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register,search_paper,show_paper_by_tag
 from djpaper.ajax_utils import ajax_title_autocomplete
 from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
 # Uncomment the next two lines to enable the admin:
@@ -15,10 +14,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 
-pulisher_info = {
-	'queryset':Publisher.objects.all(),
-	'template_name':'publisher_list_page.html',
-}
 
 from djpaper.feeds import *
 
@@ -49,7 +44,6 @@ urlpatterns = patterns('',
 	(r'^people/$',show_all_people),
 	(r'^people/(\d+)/$',show_people_by_id),
 	(r'^department/$',show_departments),
-	(r'^publishers/$',list_detail.object_list,pulisher_info),
 	(r'^about/$',about),
    	(r'^index/$',index),
 	(r'^$',index),
@@ -61,6 +55,8 @@ urlpatterns = patterns('',
 	(r'^advance/$',direct_to_template,{'template':'advance.html'}),
 	#for feeds 
 	(r'^feeds/(?P<url>.*)/$','django.contrib.syndication.views.feed',{'feed_dict':feeds}),	
+	#for tag-cloud
+	(r'^tag/(\w+)/$',show_paper_by_tag),
 	#for xls files read to save
 	(r'^xls/in/$',_xls_file_save),
 	(r'^xls/out/$',_xls_file_out_page),

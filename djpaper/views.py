@@ -192,3 +192,39 @@ def search_paper(request):
 	else:
 		return render_to_response('search.html',variables)
 
+
+def show_paper_by_tag(request,tag_title):
+	tag = Tag.objects.all().get(title=tag_title)
+	papers = tag.paper_set.all()
+	show_results = False
+	count = 0
+	if  papers.count() :
+		show_results = True	
+		paginator = Paginator(papers,ITEMS_PER_PAGE)
+		count = paginator.count
+		if request.GET.has_key('page'):
+			page = request.GET.get('page')
+		else:
+			page = 1
+		try:
+			papers = paginator.page(page)
+		except PageNotAnInteger:
+			papers = paginator.page(1)
+		except EmptyPage:
+			papers = paginator.page(paginator.num_pages)
+		
+
+	variables = RequestContext(request,{'papers':papers,
+			'count':count,
+			'show_tags':True,
+			'show_results':show_results,
+			'show_user':True,
+		})
+	if request.GET.has_key('ajax'):
+		return render_to_response('paper_list.html',variables)
+	else:
+		return render_to_response('search.html',variables)
+
+
+
+
