@@ -10,6 +10,7 @@ from djpaper.views import show_all_papers,show_departments,print_deps,show_paper
 from djpaper.ajax_utils import ajax_title_autocomplete
 from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
 # Uncomment the next two lines to enable the admin:
+
 from django.contrib import admin
 admin.autodiscover()
 
