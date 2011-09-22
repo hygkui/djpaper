@@ -24,7 +24,11 @@ def show_meta(request):
 def tag_cloud_cal():
 	MAX_WEIGHT = 5
 	tags = Tag.objects.order_by('title')
-	min_count = max_count = tags[0].paper_set.count() 
+	if tags:
+		min_count = max_count = tags[0].paper_set.count() 
+	else:
+		return 
+	
 	for tag in tags:
 		tag.count = tag.paper_set.count()
 		if tag.count < min_count:

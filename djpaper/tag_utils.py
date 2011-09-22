@@ -4,6 +4,8 @@ import os
 def tag_cloud_cal():
 	MAX_WEIGHT = 5
 	tags = Tag.objects.order_by('title')
+	if not tags:
+		return 
 	min_count = max_count = tags[0].paper_set.count() 
 	for tag in tags:
 		tag.count = tag.paper_set.count()
