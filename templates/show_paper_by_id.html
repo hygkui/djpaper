@@ -24,12 +24,13 @@
 						img_url必须是unicode的，而不是转义过的string[汉语变为%xx什么的]，否则会报错，no such file or directory,
 						所以这里要用path这个unicode路径来表示-->
 	
-					pic缩略图 :
+					pic缩略图 :</br>
+					<div class='p-pic-box'  >
 					{% load thumbnail %}
 					 {% for p in pic.all %}
-				<a href="{{ p.image.url}}" ><img src="{{ p.image.path|thumbnail:"width=50,height=50"  }}" class="paper"/></a>
-								
+						<a href="{{ p.image.url}}" ><img src="{{ p.image.path|thumbnail:"width=200,height=200"  }}" class="paper"/></a>
 					 {% endfor %} 
+				</div>
 				 <br/>
 				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>
 			<hr/>

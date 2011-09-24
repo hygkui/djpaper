@@ -12,8 +12,12 @@
 	{% if error  %}
 		<p style="color:red;"> no people exists! </p>
 	{% else %}
-		<ul>	
-					<img src="	{{ people.headshot.url }}" class="headshot"/>
+		<ul>
+					
+					{% if people.headshot %}	
+						{% load thumbnail %}
+						 <a href="{{ people.headshot.url}}" ><img src="{{ people.headshot.path|thumbnail:"width=200,height=200"  }}" class="headshot"/></a>
+					{% endif %}
 					<li>{{ people.name }}
 						<font color="gray"> ( 
 							<a href="/people/?name={{ people.name }}">同名？</a>

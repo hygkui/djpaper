@@ -72,7 +72,8 @@ THUMB_ROOT = 'thumbnails/%Y/%m%d'
 class Pic(models.Model):
 	upload_date = models.DateField()
 	paper = models.ForeignKey(Paper)
-	image = ImageWithThumbnailField(upload_to='images/%Y/%m/%d')
+	image = models.ImageField(upload_to='images/%Y/%m/%d')
+   #image = ImageWithThumbnailField(upload_to='images/%Y/%m/%d')
 
 	def get_image_url(self):
 		return "%s" % self.image.url
