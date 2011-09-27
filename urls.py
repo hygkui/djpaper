@@ -31,8 +31,6 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-#	(r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_ROOT, }),
-#	(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root':settings.MEDIA_ROOT, }),
     (r'^admin/', include(admin.site.urls)),
 	(r'^time/$',current_datetime),
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
@@ -64,7 +62,7 @@ urlpatterns = patterns('',
 	#for ajax
 	(r'^ajax/title/autocomplete/$',ajax_title_autocomplete),
 )
-
+#for static files
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )
 urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT )
 

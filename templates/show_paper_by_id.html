@@ -32,7 +32,10 @@
 					 {% endfor %} 
 				</div>
 				 <br/>
-				Tag : <font color='pink'>  {{ paper.all_the_tags }} </font> <br/>
+				Tag : 
+						 {% for tag in paper.all_the_tags %}
+							<a href="/tag/{{ tag.title }}"> {{ tag.title }} </a>
+						 {% endfor %}
 			<hr/>
 				All the commits <br/>
 				{% for c in commit %}

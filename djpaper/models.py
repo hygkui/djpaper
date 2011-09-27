@@ -54,11 +54,12 @@ class Paper(models.Model):
 			_author += au.name+"; "	
 		return "%s " % _author   
 	def all_the_tags(self):
-		_tag=""
-		for t in self.tag.all():
-			_tag += t.title + "; "
-		return "%s" % _tag 
+		#_tag=""
+	#	for t in self.tag.all():
+	#		_tag += t.title + ";"
+	#	return "%s" % _tag 
 	#for feeds
+		return self.tag.all()
 	def get_absolute_url(self):
 		return DOMAIN_NAME + self.get_ab_url()
 	#for class type
