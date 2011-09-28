@@ -12,9 +12,8 @@
 			<hr/>
 		         {% for paper in papers %}
 				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
-				{% for au in paper.author.all %}
-					<a href="/people/{{ au.id }}">{{ au }} </a> 
-				{% endfor %} ) </i>
+					<a href="/people/{{ paper.first_au.id }}">{{ paper.first_au }} </a> 
+				) </i>
 			{% endfor%}
 
 		{% endif %}

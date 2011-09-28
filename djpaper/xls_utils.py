@@ -44,15 +44,24 @@ def _xls_each_line_save(each_line):
 	if len(dt_split[1])==1:
 		dt_split[1]='0'+dt_split[1]
 	pub_date_str = dt_split[0] + dt_split[1]	
-
-	paper,p_dummy = Paper.objects.get_or_create(
-		title=each_line[2],
-		publication = _publication,
-		pub_date = datetime.datetime.strptime(str(pub_date_str),'%Y%m'),
-	)
+	
+	if _people:
+		paper,p_dummy = Paper.objects.get_or_create(
+			title=each_line[2],
+			first_au = _people,
+			publication = _publication,
+			pub_date = datetime.datetime.strptime(str(pub_date_str),'%Y%m'),
+		)
+	else:
+		paper,p_dummy = Paper.objects.get_or_create(
+			title=each_line[2],
+			first_au = po_dummy,
+			publication = _publication,
+			pub_date = datetime.datetime.strptime(str(pub_date_str),'%Y%m'),
+		)
 #	if p_dummy:
 #		flag_rtn = 1
-	paper.author.add(_people)
+	paper.other_au = []	
 	paper.save()
 	if p_dummy:
 		return paper.id

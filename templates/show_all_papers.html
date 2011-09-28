@@ -39,12 +39,14 @@
 			<font color="gray">	
 			{% for paper in papers.object_list %}
 			<!-- Changed in Django Development version: Previously, you would need to use \{\% for contact in contacts.object_list \%\}, since the Page object was not iterable. -->
-				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
-				{% for au in paper.author.all %}
-					<a href="/people/{{ au.id }}">{{ au }} </a>
-				{% endfor %} @{{ paper.pub_date|date:"Y-m" }}) </i>
+				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by <a href="/people/{{ paper.first_au.id }}">{{ paper.first_au }} </a>
+			
+			{% if paper.other_au.all %} and	{% for au in paper.other_au.all %}<a href="/people/{{ au.id }}">{{ au }} </a>	{% endfor %} {% endif %}
+
+			@{{ paper.pub_date|date:"Y-m" }}) </i>
 			{% endfor%}
-			</font>
+		
+		</font>
 		</ul>	
 	
 	<hr/>

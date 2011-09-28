@@ -13,10 +13,15 @@
 		<ul>	
 				<li> {{ paper.title }}</li>
 				<hr/>	
-				created by 
-				{% for au in paper.author.all %}
+				created by:
+				<a href="/people/{{ paper.first_au.id }}">{{ paper.first_au }} </a> <br/>
+					
+				{% if paper.other_au %}
+				other authors:
+				{% for au in paper.other_au.all %}
 					<a href="/people/{{ au.id }}">{{ au }} </a>
-				{% endfor %} 
+				{% endfor %}
+				{% endif %} 
 				<br/>pub date : {{ paper.pub_date|date:"Y年n月" }} 
 				<br/>publisher : {{ paper.publication }} 
 				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>

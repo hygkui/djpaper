@@ -114,7 +114,7 @@ def show_all_people(request):
 def show_people_by_id(request,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
-	paper = Paper.objects.all().filter(author=p_id).order_by('-id')
+	paper = Paper.objects.all().filter(first_au=p_id).order_by('-id')
 	short_msg = ShortMessage.objects.all().filter(dest=p_id)
 	form = SMForm()	
 	if request.method == "POST":

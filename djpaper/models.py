@@ -37,7 +37,8 @@ class Department(models.Model):
 
 class Paper(models.Model):
 	title = models.CharField(max_length=200)
-	author = models.ManyToManyField(People)
+	first_au = models.ForeignKey(People,related_name='first_author')
+	other_au = models.ManyToManyField(People,blank=True,null=True)
 	publication = models.ForeignKey('Publication')
 	pub_date = models.DateField()
 	tag = models.ManyToManyField('Tag',blank=True)
@@ -48,9 +49,9 @@ class Paper(models.Model):
 	
 	def get_ab_url(self):
 		return "/paper/%i/" % self.id
-	def all_the_authors(self):
+	def other_authors(self):
 		_author = ""
-		for au in self.author.all():
+		for au in self.other_au.all():
 			_author += au.name+"; "	
 		return "%s " % _author   
 	def all_the_tags(self):
