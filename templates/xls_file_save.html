@@ -1,6 +1,43 @@
 {% extends "base.html" %}
+{% block style %}
+<style type="text/css">
+td {
+border:1px solid #cccccc;   
+border-collapse:collapse;  
+}
 
+</style>
+{% endblock %}
+{% block _title %}
+<h1>
+批量从excel文件中导入数据
+</h1>
+<br/>
+{% endblock %}
 {% block content %}
+	请按照如下格式整理好数据之后再进行导入(示例)<br/>
+	<table >
+		<tr><td>单位</td>
+			<td>作者</td>
+			<td>论文题目</td>
+			<td>刊物名称</td>
+			<td>刊号</td>
+			<td>发表时间</td>
+			<td>论文类别</td></tr>
+		<tr><td>指挥所信息系统</td>
+			<td>王建刚</td>
+			<td>基于Internet的单片机远程实验系统</td>
+			<td>西安通信学院学报</td>	
+			<td>CN 61-1402.TN</td>
+			<td>2010.1<br/> <font color="red">( 时间的格式为yyyy-mm或者yyyy-m，即精确到月份。不知道月份时，如果是上半年写到6月，下半年写到12月)</font>
+				</td>	
+			<td>一般 <br/><font color="red">(论文的类别必须为以下中的一个：SCI，ISTP，EI，中文核心，军事核心，一般，其他）</font> </td>
+		</tr>
+	</table>
+
+	<br/>
+	<hr/>
+
 	<form id="xls-form" enctype="multipart/form-data" method="post" >{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="come on"/>

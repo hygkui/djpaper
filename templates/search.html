@@ -1,6 +1,12 @@
 {% extends "base.html" %}
-
+{% block _title %}
+<h1>
+搜索您想找的论文
+</h1>
+<br/>
+{% endblock %}
 {% block content %}
+	请输入论文标题中含有的词语，可以输入多个
 	<form id="search-form" method="get" >
 	{{ form.as_p }}
 	<input type="submit" value="search "/>

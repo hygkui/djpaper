@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+{% block _title %}
+<h1>
+<a href="/depart"> 返回单位列表</a> 
+</h1>
+<br/>
+{% endblock %}
+
 
 {% block content %}
 <div id="" >
-<a href="/depart"> 返回单位列表</a> <br/>
 <font color="gray">
 {% for st_list in data_list %}
 	{% if st_list.papers %}

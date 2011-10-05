@@ -38,12 +38,13 @@
 
 			<div id="menu">
 				<ul>
-						 <li><a id="menu1"  href="/index" >home</a></li>
-						 <li><a id="menu2"  href="/people" >People</a></li>
-						 <li><a id="menu3"  href="/paper" >Paper</a></li>
-						 <li><a id="menu4"  href="/advance">Advance</a></li>
-						 <li><a id="menu5"  href="/search">Search</a></li>
-						 <li><a id="menu6"  href="/about" >About</a></li>
+						 <li><a href="/index" >首页</a></li>
+						 <li><a href="/people" >作者</a></li>
+						 <li><a href="/paper" >论文</a></li>
+						 <li><a href="/advance">高级功能</a></li>
+						 <li><a href="/depart">单位统计</a></li>
+						 <li><a href="/search">搜索</a></li>
+						 <li><a href="/about" >关于</a></li>
 				</ul>
 			 </div>
 			
@@ -51,7 +52,7 @@
 		<div id="content">
 			<div style="float: right;">	
 								{% if user.is_authenticated %}
-									welcome {{ user.username }}(<a href="/accounts/logout/">logout</a>)
+								 欢迎{{ user.username }}(<a href="/accounts/logout/">注销</a>)
 								{% else %}									
 									{% include "login.html" %}| {% include "register.html" %}
 								{% endif %}

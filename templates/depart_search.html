@@ -1,5 +1,10 @@
 {% extends "base.html" %}
-
+{% block _title %}
+<h1>
+搜索某单位某一年的论文发表情况
+</h1>
+<br/>
+{% endblock %}
 {% block content %}
 	<form id="depart_search_form" method="get" >
 	{% if errors %}

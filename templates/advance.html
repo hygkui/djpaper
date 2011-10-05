@@ -1,9 +1,20 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block _title %}
+<h1>
+高级功能
+</h1>
+<br/>
+{% endblock %}
 
+
+{% block content %}
+<font style="size:28;">
 <ul>
-	<li><a href="/xls/in">import data from xls files.</a> </li>
-	<li><a href="/xls/out">export data to xls files.</a> </li>
+	<li><a href="/xls/in">批量导入论文统计数据</a> </li>
+	<li><a href="/xls/out">导出到excel文件</a> </li>
+	<li><a href="/search/depart/">搜索单位论文发表情况</a></li>
+	
 <ul>
+</font>
 {% endblock %}

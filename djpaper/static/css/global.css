@@ -19,11 +19,23 @@ p {
 	padding: 0px;
 }
 
+h1 {
+	color: #000;
+	margin:0px;
+	padding:0px;
+	font-size: 30px;
+}
 h2 {
+	color: #555;
+	margin:0px;
+	padding:0px;
+	font-size: 25px;
+}
+h3 {
 	color: #9f9f9f;
 	margin:0px;
 	padding:0px;
-	font-size: 15px;
+	font-size: 20px;
 }
 
 ul {
