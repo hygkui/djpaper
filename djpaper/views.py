@@ -8,10 +8,9 @@ from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMe
 from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
 from django.db.models import Q
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-ITEMS_PER_PAGE = 15
+from djpaper.paginator_utils import paginator_maker
 
-
+@cache_page( 60 * 15 ) 
 def show_all_papers(request):
 	count = 0
 	show_all = True
@@ -23,31 +22,24 @@ def show_all_papers(request):
 		query_set = Paper.objects.all().order_by('-id')
 
 	count = query_set.count()
-	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
 	else:
 		page = 1
-	try:
-		papers = paginator.page(page)
-	except PageNotAnInteger:
-		papers = paginator.page(1)
-	except EmptyPage:
-		papers = paginator.page(paginator.num_pages)
+	papers = paginator_maker(query_set,page)
 	variables = RequestContext(request,{
 		'papers':papers,
 		'count':count,
 	})
 	return render_to_response('show_all_papers.html',variables)
 
+@cache_page( 60 * 15 )
 def show_departments(request):
 	error = False
 	departments = Department.objects.all()
 	print_ = []
 	if departments:
-		for dep in departments:
-			print_.append( print_deps(dep) )
-		return render_to_response('show_departments.html',{'departments':departments,'print_':print_ }  ,RequestContext(request))
+		return render_to_response('show_departments.html',{'departments':departments}  ,RequestContext(request))
 	else:
 		error = True
 		return render_to_response('show_departments.html',{'error':error})
@@ -81,7 +73,7 @@ def show_paper_by_id(request,paper_id):
 
 
 
-
+@cache_page( 60 * 15 )
 def show_all_people(request):
 	count = 0
 	show_all = True
@@ -92,17 +84,11 @@ def show_all_people(request):
 		query_set = People.objects.all().order_by('-id')
 
 	count = query_set.count()
-	paginator = Paginator(query_set,ITEMS_PER_PAGE)
 	if request.GET.has_key('page'):
 		page = request.GET.get('page')
 	else:
 		page = 1
-	try:
-		people = paginator.page(page)
-	except PageNotAnInteger:
-		people = paginator.page(1)
-	except EmptyPage:
-		people = paginator.page(paginator.num_pages)
+	people = paginator_maker(query_set,page)
 	variables = RequestContext(request,{
 		'people':people,
 		'show_all':show_all,
@@ -156,6 +142,7 @@ def search_paper(request):
 	form = SearchForm()
 	papers = []
 	show_results = False
+	query=''
 	count = 0
 	if request.GET.has_key('query'):
 		show_results = True
@@ -167,22 +154,16 @@ def search_paper(request):
 				q = q & Q(title__icontains=keyword)
 			form = SearchForm( {'query' : query })
 			query_set = Paper.objects.filter(q).order_by('-id')
-			paginator = Paginator(query_set,ITEMS_PER_PAGE)
-			count = paginator.count
+			count =query_set.count()
 			if request.GET.has_key('page'):
 				page = request.GET.get('page')
 			else:
 				page = 1
-			try:
-				papers = paginator.page(page)
-			except PageNotAnInteger:
-				papers = paginator.page(1)
-			except EmptyPage:
-				papers = paginator.page(paginator.num_pages)
-		
+			papers = paginator_maker(query_set,page)
 	variables = RequestContext(request,{'form':form,
 			'papers':papers,
 			'count':count,
+			'query':query,
 			'show_tags':True,
 			'show_results':show_results,
             'show_user':True,
@@ -192,7 +173,7 @@ def search_paper(request):
 	else:
 		return render_to_response('search.html',variables)
 
-
+@cache_page( 60 * 15 )
 def show_paper_by_tag(request,tag_title):
 	tag = Tag.objects.all().get(title=tag_title)
 	papers = tag.paper_set.all()
@@ -200,20 +181,12 @@ def show_paper_by_tag(request,tag_title):
 	count = 0
 	if  papers.count() :
 		show_results = True	
-		paginator = Paginator(papers,ITEMS_PER_PAGE)
-		count = paginator.count
+		count = papers.count()
 		if request.GET.has_key('page'):
 			page = request.GET.get('page')
 		else:
 			page = 1
-		try:
-			papers = paginator.page(page)
-		except PageNotAnInteger:
-			papers = paginator.page(1)
-		except EmptyPage:
-			papers = paginator.page(paginator.num_pages)
-		
-
+		papers = paginator_maker(papers,page)
 	variables = RequestContext(request,{'papers':papers,
 			'count':count,
 			'show_tags':True,

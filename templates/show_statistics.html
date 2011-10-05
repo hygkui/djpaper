@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="" >
+<a href="/depart"> 返回单位列表</a> <br/>
+<font color="gray">
+{% for st_list in data_list %}
+	{% if st_list.papers %}
+		{{ st_list.year}}年，共{{ st_list.papers|length }}篇
+	<hr/> 
+	<ul> {% for paper in st_list.papers %}
+			<li>
+				<a href="{{ paper.get_ab_url }}"> {{ paper.title }}</a>
+				(by <a href="/people/{{ paper.first_au.id}}">{{ paper.first_au }}</a> 
+				@{{ paper.pub_date|date:"Y-m" }} 
+				| {{ paper.publication.classType }}) </li>
+			{% endfor %}
+	</ul>
+	{% endif %}
+{% endfor %}
+</font>
+</div>
+{% endblock %}
+
+
+

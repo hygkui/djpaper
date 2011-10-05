@@ -8,17 +8,8 @@
 	{% else %}
 		<ul>
 			{% for dep in departments %}
-				
-				<li> {{ dep.name }} </i>
+				<li><a href="/st/depart/?depart={{ dep.id }}"> {{ dep.name }} </a></li>
 			{% endfor %}
 		</ul>
-	{% if print_ %}
-			<ul>
-				{% for p in print_ %}
-					<li> {{ p }} </li>
-				{% endfor %}
-			</ul>
-	{% endif %}
-
 	{% endif %}
 {% endblock %}

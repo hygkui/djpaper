@@ -4,20 +4,18 @@
 		<ul>	
 			{% for paper in papers.object_list %}
 				<li> <a href="{{ paper.get_ab_url }}" > {{ paper.title }} </a>(created by 
-				{% for au in paper.author.all %}
-					<a href="/people/{{ au.id }}">{{ au }} </a> 
-				{% endfor %} ) </i>
+					<a href="/people/{{ paper.first_au.id }}">{{ paper.first_au }} </a> )
 			{% endfor%}
 		<hr/>
 		<div class="paginator"	>
 			{% if papers.has_previous %}
-				<a href="?page={{ papers.previous_page_number }}">&laquo;Pervious</a>
+				<a href="?page={{ papers.previous_page_number }}&query={{ query }}">&laquo;Pervious</a>
 			{% endif %}
 			<span class="current">
 				Page {{ papers.number }} of {{ papers.paginator.num_pages }}.
 			</span>
 			{% if papers.has_next %}
-				<a href="?page={{ papers.next_page_number }}">Next &raquo;</a>
+				<a href="?page={{ papers.next_page_number }}&query={{ query }}">Next &raquo;</a>
 			{% endif %}
 		</div>	
 		</ul>	

@@ -9,6 +9,7 @@ from contact.views import contact,thanks
 from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,show_all_people,show_people_by_id,register,search_paper,show_paper_by_tag
 from djpaper.ajax_utils import ajax_title_autocomplete
 from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
+from djpaper.statistics import show_statistics,data_maker
 # Uncomment the next two lines to enable the admin:
 
 from django.contrib import admin
@@ -42,7 +43,7 @@ urlpatterns = patterns('',
 	(r'^paper/(\d+)/$',show_paper_by_id),
 	(r'^people/$',show_all_people),
 	(r'^people/(\d+)/$',show_people_by_id),
-	(r'^department/$',show_departments),
+	(r'^depart/$',show_departments),
 	(r'^about/$',about),
    	(r'^index/$',index),
 	(r'^$',index),
@@ -61,6 +62,11 @@ urlpatterns = patterns('',
 	(r'^xls/out/$',_xls_file_out_page),
 	#for ajax
 	(r'^ajax/title/autocomplete/$',ajax_title_autocomplete),
+	#for search depart
+	(r'^search/depart/$',show_statistics),
+	#for statistic & st. is short for statistics
+	(r'^st/depart/$',data_maker),
+	
 )
 #for static files
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )

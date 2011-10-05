@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form id="depart_search_form" method="get" >
+	{% if errors %}
+		<font color="red">
+		{% for error in errors %}
+			{{ error }}
+		{% endfor %}
+		</font>
+	{% endif %}	
+		{{ form.as_p }}
+	<input type="submit" value="search "/>
+	</form>
+	<div id="search-results" >
+		{% if show_result %}
+	 	共找到：<font color="red" >{{ count }}</font>篇
+			{% for paper in papers %}
+				<li> {{ paper.title }} (by {{ paper.first_au }}@{{ paper.pub_date|date:"Y-m" }} | {{ paper.publication.classType }}) </li>
+			{% endfor %}
+		
+		{% endif %}
+	</div>
+{% endblock %}
+
+
+
