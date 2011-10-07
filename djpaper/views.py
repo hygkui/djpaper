@@ -133,7 +133,7 @@ def register(request):
 				password = form.cleaned_data['password1'],
 				email = form.cleaned_data['email']
 			)
-			return HttpResponseRedirect('/register/success/')
+			return HttpResponseRedirect('/register/errors/')
 	
 	variables = RequestContext(request, { 'form':form} )
 	return render_to_response('registration/register.html',variables)
@@ -193,11 +193,31 @@ def show_paper_by_tag(request,tag_title):
 			'show_results':show_results,
 			'show_user':True,
 		})
-	if request.GET.has_key('ajax'):
-		return render_to_response('paper_list.html',variables)
-	else:
-		return render_to_response('search.html',variables)
+	return render_to_response('paper_list.html',variables)
 
-
+### tag-add
+def tag_add(request):
+	flag = 0 # 2 stands for new ,1 stands for old ,  0 stands for faild.
+	title=''
+	if request.method == 'POST':
+			title=request.POST['title'].strip()
+			if title:
+				tag = Tag.objects.all().filter(title=title)
+				if tag:
+					tag = tag.get(title=title)
+					tag.times = tag.times + 1
+					flag = 1
+				else:
+					tag = Tag(title=title,times=1)
+					flag = 2
+				tag.save()
+				if request.POST.has_key('p_id'):
+						p_id = request.POST['p_id']
+						try:
+							tag.paper_set.add(Paper.objects.get(id=p_id))
+						except:
+							pass
+	variables = RequestContext(request, { 'title':title,'flag':flag} )
+	return render_to_response('tag_add_su.html',variables)
 
 

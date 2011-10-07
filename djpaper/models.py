@@ -79,6 +79,7 @@ class Pic(models.Model):
 
 	def get_image_url(self):
 		return "%s" % self.image.url
+
 class Tag(models.Model):
 	title = models.CharField(max_length=30)
 	times = models.IntegerField(default=1)
@@ -118,6 +119,24 @@ class ShortMessage(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class Commit(models.Model):
+	time = models.DateTimeField(auto_now=True)
+	people = models.ForeignKey(People,related_name='commit_people')
+	content = models.CharField(max_length=1000)
+	paper = models.ForeignKey(Paper,related_name='commit_paper')
+	
+	def __unicode__(self):
+		return u'commit by %s ' % self.people
+
+
+##################################################################
+##################################################################
+### forms for the classes above !  
+### 2011年 10月 07日 星期五 18:24:32 CST
+##################################################################
+##################################################################
+
 class SMForm(ModelForm):
 	class Meta:
 		model = ShortMessage
@@ -129,20 +148,6 @@ class SMForm(ModelForm):
 		}
 			
 			
-class Commit(models.Model):
-	time = models.DateTimeField(auto_now=True)
-	people = models.ForeignKey(People,related_name='commit_people')
-	content = models.CharField(max_length=1000)
-	paper = models.ForeignKey(Paper,related_name='commit_paper')
-	
-	def __unicode__(self):
-		return u'commit by %s ' % self.people
-
-#	def save(self,force_insert=False,force_update=False):
-#		if self.time is None:
-#			self.time = datetime.datetime.now()
-#		super(Commit,self).save(force_insert,force_update)
-
 class CommitForm(ModelForm):
 	class Meta:
 		model = Commit
@@ -175,4 +180,4 @@ class RegistrationForm(forms.Form):
 		except ObjectDoesNotExist:
 			return username
 		raise forms.ValidationError('Username is already existed.')
-	
+

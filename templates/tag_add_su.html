@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block _title %}
+<h1>添加成功</h1><br/>
+{% endblock %}
+{% block content %}
+<form method="post" action=""> {% csrf_token %}
+	{% if not flag %}
+
+	{% else %}
+		{% if flag > 1 %}新{% else %}{% endif %}标签"<font color="red"><a href="/tag/{{ title }}/"> {{ title }} </a>  </font>"添加成功！
+
+	{% endif %}
+</form>
+</div>
+{% endblock %}
+

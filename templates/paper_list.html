@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+{% block _title %}
+<h1>您要找的paper </h1>
+<br/>
+{% endblock %}
 {% block content %}
 		{% if count > 0 %}
 		<p style="color:gray;">find out <strong style="color:red;">{{ count }}</strong> paper{{ count|pluralize }} </p>
