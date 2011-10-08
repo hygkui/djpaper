@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect,Http404
 from django.shortcuts import render_to_response
-from djpaper.models import Paper,Department,Pic,People,Commit,CommitForm,ShortMessage,SMForm,Tag,RegistrationForm
+from djpaper.models import Paper,Department,Pic,People,Commit,ShortMessage,SMForm,Tag,RegistrationForm,PaperForm,PicForm
 from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
 from django.db.models import Q
 from djpaper.paginator_utils import paginator_maker
-
-@cache_page( 60 * 15 ) 
+from datetime import datetime
+##@cache_page( 60 * 15 ) 
 def show_all_papers(request):
 	count = 0
 	show_all = True
@@ -33,7 +33,7 @@ def show_all_papers(request):
 	})
 	return render_to_response('show_all_papers.html',variables)
 
-@cache_page( 60 * 15 )
+##@cache_page( 60 * 15 )
 def show_departments(request):
 	error = False
 	departments = Department.objects.all()
@@ -51,29 +51,21 @@ def print_deps(dep):
 		else: 
 			return dep.name
 
-@cache_page( 60 * 15 )
+##@cache_page( 60 * 15 )
 def show_paper_by_id(request,paper_id):
 	error = False
-	paper = Paper.objects.all().get(id=paper_id)
-	pic = Pic.objects.all().filter(paper=paper_id) 
-	commit = Commit.objects.all().filter(paper=paper_id)
-	form = CommitForm()
-	if request.method == 'POST':
-		data = request.POST.copy()#else u cannot change the value of the data
-		data['paper'] = paper_id
-		form = CommitForm(data)
-		if form.is_valid():
-			form.save()
-			return HttpResponseRedirect('')
-	if paper :	
-		return render_to_response('show_paper_by_id.html',{'paper':paper,'pic':pic,'commit':commit,'form':form,},RequestContext(request))
-	else:
+	paper = Paper()
+	try:
+		paper = Paper.objects.all().get(id=paper_id)
+	except paper.DoesNotExist:
 		error = True
-		return render_to_response('show_paper_by_id.html',{'error':error })
+	pic = Pic.objects.all().filter(paper=paper_id)
+	variables = RequestContext(request,	{'paper':paper,'pic':pic,'error':error})
+	return render_to_response('show_paper_by_id.html',variables)
 
 
 
-@cache_page( 60 * 15 )
+##@cache_page( 60 * 15 )
 def show_all_people(request):
 	count = 0
 	show_all = True
@@ -96,7 +88,7 @@ def show_all_people(request):
 	})
 	return render_to_response('show_all_people.html',variables)
 
-@cache_page( 60 * 15 )
+##@cache_page( 60 * 15 )
 def show_people_by_id(request,p_id):
 	error = False
 	people = People.objects.all().get(id=p_id)
@@ -173,7 +165,7 @@ def search_paper(request):
 	else:
 		return render_to_response('search.html',variables)
 
-@cache_page( 60 * 15 )
+##@cache_page( 60 * 15 )
 def show_paper_by_tag(request,tag_title):
 	tag = Tag.objects.all().get(title=tag_title)
 	papers = tag.paper_set.all()
@@ -205,10 +197,9 @@ def tag_add(request):
 				tag = Tag.objects.all().filter(title=title)
 				if tag:
 					tag = tag.get(title=title)
-					tag.times = tag.times + 1
 					flag = 1
 				else:
-					tag = Tag(title=title,times=1)
+					tag = Tag(title=title)
 					flag = 2
 				tag.save()
 				if request.POST.has_key('p_id'):
@@ -220,4 +211,38 @@ def tag_add(request):
 	variables = RequestContext(request, { 'title':title,'flag':flag} )
 	return render_to_response('tag_add_su.html',variables)
 
+def paper_edit(request,p_id):
+	paper = Paper.objects.get(id=p_id)
+	flag = 0 # 0 stands for show , 1 stands for write to the db.
+	if request.method == 'POST':
+		flag = 1
+		form = PaperForm(request.POST,instance=paper)
+		form.save()
+	else: 
+		form = PaperForm(instance=paper)
+	variables = RequestContext(request,{'form':form,'p_id':p_id})
+	if flag:
+		return	show_paper_by_id(request,p_id) 
+	else:
+		return render_to_response('paper_edit.html',variables)
 
+def pic_upload(request,p_id):
+	succ = False
+	paper = Paper.objects.get(id=p_id)
+	form = PicForm()
+	if request.method == 'POST':
+		form = PicForm(request.POST, request.FILES)
+		if form.is_valid():
+			f = request.FILES['image']
+			parser = ImageFile.Parser()
+			for chunk in f.chunks():
+				parser.feed(chunk)
+			img = parser.close()
+			img.save('/home/ghh/dj/media/images/2011/10/09/')
+			succ = True
+	variables = RequestContext(request,{'form':form,'p_id':p_id,'succ':succ})
+	if not succ:
+		return render_to_response('pic_upload.html',variables)		
+	else:
+		return show_paper_by_id(request,p_id)
+		

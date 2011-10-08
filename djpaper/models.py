@@ -146,16 +146,6 @@ class SMForm(ModelForm):
 			'dest':HiddenInput(attrs={'value':0}),
 			'msg_date':HiddenInput(),
 		}
-			
-			
-class CommitForm(ModelForm):
-	class Meta:
-		model = Commit
-		fields = ('content','people','paper')
-		widgets = {
-			'content':Textarea(attrs={'cols':40,'rows':6,}),
-			'paper':HiddenInput(attrs={'value':0}),
-		}
 
 class RegistrationForm(forms.Form):
 	username = forms.CharField(label='username',max_length=30)
@@ -180,4 +170,11 @@ class RegistrationForm(forms.Form):
 		except ObjectDoesNotExist:
 			return username
 		raise forms.ValidationError('Username is already existed.')
+class PaperForm(ModelForm):
+	class Meta:
+		model = Paper
 
+class PicForm(ModelForm):
+	class Meta:
+		model = Pic 
+		exclude = ('paper','upload_date')
