@@ -174,7 +174,5 @@ class PaperForm(ModelForm):
 	class Meta:
 		model = Paper
 
-class PicForm(ModelForm):
-	class Meta:
-		model = Pic 
-		exclude = ('paper','upload_date')
+class PicForm(forms.Form):
+	image = forms.ImageField()

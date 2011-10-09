@@ -9,7 +9,9 @@ from django.views.decorators.cache import cache_page
 from djpaper.forms import SearchForm
 from django.db.models import Q
 from djpaper.paginator_utils import paginator_maker
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
 ##@cache_page( 60 * 15 ) 
 def show_all_papers(request):
 	count = 0
@@ -226,20 +228,16 @@ def paper_edit(request,p_id):
 	else:
 		return render_to_response('paper_edit.html',variables)
 
+@login_required()
 def pic_upload(request,p_id):
 	succ = False
 	paper = Paper.objects.get(id=p_id)
-	form = PicForm()
-	if request.method == 'POST':
-		form = PicForm(request.POST, request.FILES)
-		if form.is_valid():
-			f = request.FILES['image']
-			parser = ImageFile.Parser()
-			for chunk in f.chunks():
-				parser.feed(chunk)
-			img = parser.close()
-			img.save('/home/ghh/dj/media/images/2011/10/09/')
-			succ = True
+	if 'file' in  request.FILES:
+		image = request.FILES['file']
+		s = Pic(upload_date=datetime.now(),paper=paper,image=image)
+		s.save()
+		succ = True
+	form = PicForm(request.POST)
 	variables = RequestContext(request,{'form':form,'p_id':p_id,'succ':succ})
 	if not succ:
 		return render_to_response('pic_upload.html',variables)		

@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 
+
 {% block _title %}
+
 <h1>修改文章 </h1>
 <br/>
 {% endblock %}
 
 {% block content %}
-<form method="post" action="/pic/upload/{{ p_id }}"> {% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="提交"/>
+<form method="post" action="/pic/upload/{{ p_id }}" enctype="multipart/form-data" > {% csrf_token %}
+<fieldset>
+	<legend>上传图片</legend>
+	<input type="file" name="file"/>
+	<input type="submit" value="提交"/>
+</fieldset>
 </form>
+
+
+
 {% endblock %}
