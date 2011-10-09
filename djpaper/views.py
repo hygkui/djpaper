@@ -190,28 +190,23 @@ def show_paper_by_tag(request,tag_title):
 	return render_to_response('paper_list.html',variables)
 
 ### tag-add
-def tag_add(request):
-	flag = 0 # 2 stands for new ,1 stands for old ,  0 stands for faild.
-	title=''
+def tag_add(request,p_id):
+	succ = False
+	paper = Paper.objects.get(id=p_id)
 	if request.method == 'POST':
-			title=request.POST['title'].strip()
-			if title:
-				tag = Tag.objects.all().filter(title=title)
-				if tag:
-					tag = tag.get(title=title)
-					flag = 1
-				else:
-					tag = Tag(title=title)
-					flag = 2
+		title=request.POST['title'].strip()
+		if title:
+			tag = Tag.objects.all().filter(title=title)
+			if tag:
+				tag = tag.get(title=title)
+			else:
+				tag = Tag(title=title)
 				tag.save()
-				if request.POST.has_key('p_id'):
-						p_id = request.POST['p_id']
-						try:
-							tag.paper_set.add(Paper.objects.get(id=p_id))
-						except:
-							pass
-	variables = RequestContext(request, { 'title':title,'flag':flag} )
-	return render_to_response('tag_add_su.html',variables)
+			try:
+				tag.paper_set.add(paper)
+			except:
+				pass
+	return show_paper_by_id(request,p_id)
 
 def paper_edit(request,p_id):
 	paper = Paper.objects.get(id=p_id)
@@ -243,4 +238,34 @@ def pic_upload(request,p_id):
 		return render_to_response('pic_upload.html',variables)		
 	else:
 		return show_paper_by_id(request,p_id)
+	
+@login_required()
+def abs_edit(request,p_id):
+	succ = False
+	paper = Paper.objects.get(id=p_id)
+	if request.POST.has_key('content'):
+		content = request.POST['content'].strip()
+		if content:
+			paper.abstract = content
+			paper.save()
+			succ = True
+	return show_paper_by_id(request,p_id)
 		
+############################################
+## author can add only if he/she exists. ###
+############################################
+@login_required()
+def author_add(request,p_id):
+	paper = Paper.objects.get(id=p_id)
+	authors = paper.other_au.all()
+	if request.POST.has_key('author') and request.POST.has_key('depart'):
+		author = request.POST['author'].strip()
+		depart = request.POST['depart'].strip()
+		try:
+			au = People.objects.get(name=author,departTree=Department.objects.get(name=depart))
+		except:
+			pass
+		if au:
+			au.paper_set.add(paper)
+	return show_paper_by_id(request,p_id)
+				

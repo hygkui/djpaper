@@ -8,7 +8,7 @@ from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
 from contact.views import contact,thanks
 from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,\
 				show_all_people,show_people_by_id,register,search_paper,show_paper_by_tag,\
-				tag_add,paper_edit,pic_upload
+				tag_add,paper_edit,pic_upload,abs_edit,author_add
 from djpaper.ajax_utils import ajax_title_autocomplete
 from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
 from djpaper.statistics import show_statistics,data_maker
@@ -69,12 +69,16 @@ urlpatterns = patterns('',
 	#for statistic & st. is short for statistics
 	(r'^st/depart/$',data_maker),
 	# test for tag +
-	(r'^tagadd/$',tag_add),	
-	(r'^tagaddsu/$',direct_to_template,{'template':'tag_add_su.html'}),
+	(r'^tagadd/(\d+)$',tag_add),	
 	# for paper edit 
 	(r'^paper/edit/(\d+)$',paper_edit),	
 	# for pic upload	
 	(r'^pic/upload/(\d+)$',pic_upload),	
+	# for abstract edit
+	(r'^abs/edit/(\d+)$',abs_edit),	
+	# for other author add.
+	(r'^au/add/(\d+)$',author_add),	
+
 )
 #for static files
 urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT )

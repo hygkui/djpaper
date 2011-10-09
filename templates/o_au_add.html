@@ -1,0 +1,15 @@
+<a href="TB_inline?height=215&width=400&inlineId=au_add_Window" class="thickbox">[+作者]</a>
+<div id="au_add_Window" style="display:none;" >
+<form method="post" action="/au/add/{{ paper.id }}"> {% csrf_token %}
+	<fieldset >
+		<legend>添加其他作者</legend>
+		(<font color="red">只能填写已有的作者，可以先搜索一下该作者是否存在<a href="/people/">[查作者]</a></font>)<br/>
+		<label for="id_author">作者名字(单次添加一人)：</label> 
+		<input id="id_author" type="text" name="author" maxlength="30" /></p>
+		<label for="id_depart">作者单位：</label> 
+		<input id="id_depart" type="text" name="depart" maxlength="30" /></p>
+	<input type="submit" value="提交" />
+	</fieldset>
+</form>
+</div>
+

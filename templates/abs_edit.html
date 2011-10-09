@@ -1,0 +1,13 @@
+<a href="TB_inline?height=215&width=400&inlineId=abs_edit_Window" class="thickbox">[编辑]</a>
+<div id="abs_edit_Window" style="display:none;" >
+<form method="post" action="/abs/edit/{{ paper.id }}"> {% csrf_token %}
+	<fieldset >
+		<legend>编辑文章简介</legend>
+		<label for="id_content">简介内容</label>
+		<br/>
+		 <textarea id="id_content" type="textarea" name="content" cols="30" rows="6">{{ paper.abstract }}</textarea>
+	<input type="submit" value="提交" />
+	</fieldset>
+</form>
+</div>
+

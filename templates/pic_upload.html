@@ -1,21 +1,10 @@
-{% extends "base.html" %}
-
-
-{% block _title %}
-
-<h1>修改文章 </h1>
-<br/>
-{% endblock %}
-
-{% block content %}
-<form method="post" action="/pic/upload/{{ p_id }}" enctype="multipart/form-data" > {% csrf_token %}
+<a href="TB_inline?height=215&width=400&inlineId=pic_upload_Window" class="thickbox">上传图片</a>
+<div id="pic_upload_Window" style="display:none;" >
+<form method="post" action="/pic/upload/{{ paper.id }}" enctype="multipart/form-data" > {% csrf_token %}
 <fieldset>
 	<legend>上传图片</legend>
 	<input type="file" name="file"/>
 	<input type="submit" value="提交"/>
 </fieldset>
 </form>
-
-
-
-{% endblock %}
+</div>

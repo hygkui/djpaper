@@ -11,25 +11,22 @@
 		<p style="color:red;"> no paper exists! </p>
 	{% else %}
 		<ul>	
-				<li> {{ paper.title }} <a href="/paper/edit/{{ paper.id }}">编辑此论文</a></li>
+				<li> {{ paper.title }} ({{ paper.get_class_type }})<a href="/paper/edit/{{ paper.id }}">[编辑此论文]</a></li>
 				<hr/>	
 				created by:
 				<a href="/people/{{ paper.first_au.id }}">{{ paper.first_au }} </a> <br/>
 					
 				{% if paper.other_au %}
-				other authors:
+				other authors:{% include "o_au_add.html"%} <br/>
 				{% for au in paper.other_au.all %}
 					<a href="/people/{{ au.id }}">{{ au }} </a>
 				{% endfor %}
 				{% endif %} 
 				<br/>pub date : {{ paper.pub_date|date:"Y年n月" }} 
 				<br/>publisher : {{ paper.publication }} 
-				<br/>Abstract: <p> {{ paper.abstract }} <br/> </p>
-			 <br/>					<!-- 2011.06.19 需要用path，而不能用url，因为使用Image的thumbnail函数时候，先用Image.open(img_url)，这里的
-						img_url必须是unicode的，而不是转义过的string[汉语变为%xx什么的]，否则会报错，no such file or directory,
-						所以这里要用path这个unicode路径来表示-->
-	
-					pic缩略图 :<a href="/pic/upload/{{ paper.id }} ">上传图片</a></br>
+				<br/>Abstract:{% include "abs_edit.html" %} <p> {{ paper.abstract }} <br/> </p>
+			 <br/>						
+					pic缩略图:{% include "pic_upload.html" %} </br>
 					<div class='p-pic-box'  >
 					{% load thumbnail %}
 					 {% for p in pic.all %}
@@ -37,18 +34,8 @@
 					 {% endfor %} 
 				</div>
 				 <br/>
-				Tag
-				<a href="TB_inline?height=215&width=400&inlineId=tag_add_Window" class="thickbox">+新</a>
-				<div id="tag_add_Window" style="display:none;" >
-				<form method="post" action="/tagadd/"> {% csrf_token %}
-					<fieldset >
-						<legend>添加新标签</legend>
-						<label for="id_title">标签名称：</label> <input id="id_title" type="text" name="title" maxlength="30" /></p>
-						<input type="hidden" name="p_id" value="{{ paper.id }}"/>
-					<input type="submit" value="提交" />
-					</fieldset>
-				</form>
-				</div> <br/>
+				Tag:{% include "tag_add.html" %}
+				 <br/>
 
 						 {% for tag in paper.all_the_tags %}
 							<a href="/tag/{{ tag.title }}"> {{ tag.title }} </a>
