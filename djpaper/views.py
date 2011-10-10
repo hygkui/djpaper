@@ -256,6 +256,7 @@ def abs_edit(request,p_id):
 ############################################
 @login_required()
 def author_add(request,p_id):
+	au = []
 	paper = Paper.objects.get(id=p_id)
 	authors = paper.other_au.all()
 	if request.POST.has_key('author') and request.POST.has_key('depart'):
