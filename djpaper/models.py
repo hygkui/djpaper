@@ -82,7 +82,6 @@ class Pic(models.Model):
 
 class Tag(models.Model):
 	title = models.CharField(max_length=30)
-	times = models.IntegerField(default=1)
 
 	def __unicode__(self):
 		return self.title
