@@ -55,12 +55,12 @@ def print_deps(dep):
 
 ##@cache_page( 60 * 15 )
 def show_paper_by_id(request,paper_id):
-	error = False
+	error = []
 	paper = Paper()
 	try:
 		paper = Paper.objects.all().get(id=paper_id)
 	except paper.DoesNotExist:
-		error = True
+		error += '.paper does not exist.'
 	pic = Pic.objects.all().filter(paper=paper_id)
 	variables = RequestContext(request,	{'paper':paper,'pic':pic,'error':error})
 	return render_to_response('show_paper_by_id.html',variables)
@@ -190,12 +190,13 @@ def show_paper_by_tag(request,tag_title):
 	return render_to_response('paper_list.html',variables)
 
 ### tag-add
+@login_required()
 def tag_add(request,p_id):
 	succ = False
 	paper = Paper.objects.get(id=p_id)
 	if request.method == 'POST':
-		title=request.POST['title'].strip()
-		if title:
+		if request.POST.has_key('title'):
+			title=request.POST['title'].strip()
 			tag = Tag.objects.all().filter(title=title)
 			if tag:
 				tag = tag.get(title=title)
@@ -208,6 +209,7 @@ def tag_add(request,p_id):
 				pass
 	return show_paper_by_id(request,p_id)
 
+@login_required
 def paper_edit(request,p_id):
 	paper = Paper.objects.get(id=p_id)
 	flag = 0 # 0 stands for show , 1 stands for write to the db.
@@ -257,6 +259,7 @@ def abs_edit(request,p_id):
 @login_required()
 def author_add(request,p_id):
 	au = []
+	error = ''
 	paper = Paper.objects.get(id=p_id)
 	authors = paper.other_au.all()
 	if request.POST.has_key('author') and request.POST.has_key('depart'):
@@ -265,8 +268,10 @@ def author_add(request,p_id):
 		try:
 			au = People.objects.get(name=author,departTree=Department.objects.get(name=depart))
 		except:
-			pass
+			error = '%s...' % author
 		if au:
 			au.paper_set.add(paper)
+	if error:
+		return HttpResponseRedirect('')
 	return show_paper_by_id(request,p_id)
 				

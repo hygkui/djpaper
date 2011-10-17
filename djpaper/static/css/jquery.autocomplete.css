@@ -17,7 +17,7 @@
 .ac_results li {
 	margin: 0px;
 	padding: 2px 5px;
-	cursor: default;
+/*	cursor: default; */
 	display: block;
 	/* 
 	if width will be 100% horizontal scrollbar will apear 

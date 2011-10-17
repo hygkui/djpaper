@@ -11,22 +11,21 @@
 		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/jquery.autocomplete.css" />
 		<link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/thickbox.css" />
 		<link rel="shortcut icon" href="{% get_static_prefix %}favicon.ico" />
-		
+		<link rel="alternate" type="application/rss+xml" title="Django Papers | Recent Papers" href="/feeds/recent/" />
 		{% block style %} 
 		
 		{% endblock %}
 		
 		{% block external %}
-		<link rel="alternate" type="application/rss+xml" title="Django Papers | Recent Papers" href="/feeds/recent/" />
 		{% endblock %}
 		{% block jsCode %}
 		<script type="text/javascript" src="{% get_static_prefix %}js/textsizer.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/rel.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.bgiframe.min.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.ajaxQueue.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/lib/thickbox-compressed.js"></script>
 		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.autocomplete.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.bgiframe.min.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/my_people_autocomplete.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/lib/thickbox-compressed.js"></script>
 	{% endblock %}
 	</head>	
 
@@ -62,6 +61,7 @@
 				{% block _title %} 
 					<h2 >Add something in the _title 这个是设置页面的第一行标题 </h2>
 		    	{% endblock %}
+								{% include "error_box_alert.html"  %}
 				{% block content %}
 						<p> The content of the page! </p>
 				 {% endblock %}

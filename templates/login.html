@@ -1,6 +1,6 @@
 <a href="TB_inline?height=155&width=400&inlineId=loginWindow" class="thickbox">login </a>
 <div id="loginWindow" style="display:none;" >
-  <form action="/accounts/login/" method="post">{% csrf_token %}
+  <form action="/accounts/login/?next={{ request.path }}" method="post">{% csrf_token %}
 	<fieldset>
 		<legend>Login in </legend>
 			 <label for="username">User name:</label>

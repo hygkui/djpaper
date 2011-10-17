@@ -9,7 +9,7 @@ from contact.views import contact,thanks
 from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,\
 				show_all_people,show_people_by_id,register,search_paper,show_paper_by_tag,\
 				tag_add,paper_edit,pic_upload,abs_edit,author_add
-from djpaper.ajax_utils import ajax_title_autocomplete
+from djpaper.ajax_utils import ajax_title_autocomplete,ajax_people_autocomplete
 from djpaper.xls_utils import _xls_file_save,_xls_file_out_page
 from djpaper.statistics import show_statistics,data_maker
 # Uncomment the next two lines to enable the admin:
@@ -64,6 +64,7 @@ urlpatterns = patterns('',
 	(r'^xls/out/$',_xls_file_out_page),
 	#for ajax
 	(r'^ajax/title/autocomplete/$',ajax_title_autocomplete),
+	(r'^ajax/people/autocomplete/$',ajax_people_autocomplete),
 	#for search depart
 	(r'^search/depart/$',show_statistics),
 	#for statistic & st. is short for statistics

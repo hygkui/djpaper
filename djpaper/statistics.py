@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 from django.views.decorators.cache import cache_page
+from django.contrib.auth.decorators import login_required
 import re
 
 def show_statistics(request):
@@ -55,9 +56,12 @@ def get_statistics(depart_id,year):
 	return papers
 
 @cache_page(60 * 15)	
+@login_required
 def data_maker(request):
 	data_list = []
-	depart = request.GET['depart']
+	depart = ''
+	if request.GET.has_key('depart'):
+		depart = request.GET['depart']
 	if re.match(r'(\d+)',depart):
 		before_year = datetime.now().year-5
 		now_year = datetime.now().year

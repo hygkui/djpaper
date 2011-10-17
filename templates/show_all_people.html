@@ -5,7 +5,7 @@
 {% block style %}
 	<script type="text/javascript">
 	function go_find_people(){
-		var t_name=document.getElementById("t_name").value; 
+		var t_name=document.getElementById("id_p_name").value; 
 		var loc = "/people/?name="
 		loc=loc.concat(t_name);
 		//for test: alert(loc);
@@ -13,10 +13,11 @@
 	};
 	</script>
 {% endblock %}
+
 {% block content %}
 	<div id="search_people_by_name" align="center">
 		<font color="gray"> 想找谁？	
-	<input type="text" size="10" id="t_name"/>
+		<input id="id_p_name" type="text"/>
 		</font>
 	<input type="submit" value="找一下!" onclick="go_find_people();" /> 
 	</div>

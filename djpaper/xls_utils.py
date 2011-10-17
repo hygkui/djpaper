@@ -8,6 +8,7 @@ from django.template import RequestContext
 OPEN_WORKBOOK_ERROR = 'faild to open the workbook'
 from djpaper.forms import XlsSaveForm,SearchFormName,SearchFormDepartTree
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 import settings
 
 def get_excel_data(xls_file):
@@ -68,6 +69,7 @@ def _xls_each_line_save(each_line):
 	else:
 		return 0
 
+@login_required
 def _xls_file_save(request):
 	show_results = False
 	papers=[]
