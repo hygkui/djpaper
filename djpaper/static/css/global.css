@@ -327,12 +327,12 @@ blockquote{
 	color:#c95000;
 }
 
-.tag-cloud-0 { font-size:10px;font-color:#c95;}
-.tag-cloud-1 { font-size:14px;font-color:#c95000;}
-.tag-cloud-2 { font-size:18px;font-color:#c95000;}
-.tag-cloud-3 { font-size:22px;font-color:#c95000;}
-.tag-cloud-4 { font-size:26px;font-color:#c95000;}
-.tag-cloud-5 { font-size:30px;font-color:#c95000;}
+.tag-cloud-0 { font-size:10px;}
+.tag-cloud-1 { font-size:14px;}
+.tag-cloud-2 { font-size:18px;}
+.tag-cloud-3 { font-size:22px;}
+.tag-cloud-4 { font-size:26px;}
+.tag-cloud-5 { font-size:30px;}
 
 
 #top_10_box a {
