@@ -2,7 +2,8 @@
 {% block title %} show all the people {% endblock %}
 
 {% block _title %} <h1> All the People </h1> {% endblock %}
-{% block style %}
+{% block jsCode %}
+	{% load static %}
 	<script type="text/javascript">
 	function go_find_people(){
 		var t_name=document.getElementById("id_p_name").value; 
@@ -11,6 +12,10 @@
 		//for test: alert(loc);
 		window.location=loc;
 	};
+	$(document).ready( function() {
+		$("#id_p_name").autocomplete('/ajax/people/autocomplete/',{multiple:true,multipleSeparator:' '});
+	});
+
 	</script>
 {% endblock %}
 
@@ -47,4 +52,5 @@
 		{% endif %}
 
 {%	endblock %}
+
 

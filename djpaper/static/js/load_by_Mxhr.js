@@ -5,16 +5,13 @@ MXHR_Script =
 	{
 		var i_Q = MXHR_Script.queuedScripts.length;
 		
-		// 对新加入的进行初始化
 		if ( b_order ) 
 		{
 			var qScript = {response:null,onload:onload,done:false};
 			MXHR_Script.queuedScripts[i_Q] = qScript;
 		}
 	
-	    //建立xml http request.
 		var xhrObj = MXHR_Script.getXHRObject();
-		//设定当其状态为ready的时候执行如下动作
 		xhrObj.onreadystatechange = function() 
 		{
 			if ( xhrObj.readyState == 4 ) 
@@ -34,7 +31,6 @@ MXHR_Script =
 				}
 			}
 		};
-		// 发送xml http request 对象
 		xhrObj.open('GET',url,true);
 		xhrObj.send('');
 	},
@@ -95,11 +91,6 @@ MXHR_Script =
 		}
 	}
 };
-function init()
-{
-	alert("load ok");
-};
-
 
 
 
