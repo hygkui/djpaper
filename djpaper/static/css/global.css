@@ -248,8 +248,6 @@ blockquote{
 
 #right .box a {
 	margin: 10px 0 10px 0;
-	color: #93B300;
-	font-size: 13px;
 }
 
 #right .box p {
@@ -264,7 +262,7 @@ blockquote{
 
 #right .box li {
 	margin-top:5px;
-	font-size:10px;
+	font-size:14px;
 	color:gray;
 }
 
@@ -282,7 +280,7 @@ blockquote{
 	text-decoration: none;
 	}
 
-#nav a:hover{
+#nav a:hover {
 	color: #1a1a1a;
 	background: url(../images/bg_t.gif) no-repeat;
 	background-color: #fff;
@@ -320,24 +318,26 @@ blockquote{
 /*** for tag-cloud ***/
 #right .tag-cloud
 {
-	background: #F6F9FB;
-	border: 0px solid #E1E1E1;
 	padding:10px 10px 15px 10px;
 	text-align: left ;
-	
 }
 
-#right .tag-cloud a {
-	margin:0 0.2em;
-	text-decoration:none;
+#right .tag-cloud a
+{
 	color:#c95000;
 }
-.tag-cloud-0 { font-size:10px;}
-.tag-cloud-1 { font-size:14px;}
-.tag-cloud-2 { font-size:18px;}
-.tag-cloud-3 { font-size:22px;}
-.tag-cloud-4 { font-size:24px;}
-.tag-cloud-5 { font-size:48px;}
+
+.tag-cloud-0 { font-size:10px;font-color:#c95;}
+.tag-cloud-1 { font-size:14px;font-color:#c95000;}
+.tag-cloud-2 { font-size:18px;font-color:#c95000;}
+.tag-cloud-3 { font-size:22px;font-color:#c95000;}
+.tag-cloud-4 { font-size:26px;font-color:#c95000;}
+.tag-cloud-5 { font-size:30px;font-color:#c95000;}
+
+
+#top_10_box a {
+	color:#7F5217;
+}
 
 /*** for paper-pic's div box  ***/
 .p-pic-box {
