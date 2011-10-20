@@ -19,13 +19,22 @@
 		{% block external %}
 		{% endblock %}
 		{% block jsCode %}
-		<script type="text/javascript" src="{% get_static_prefix %}js/textsizer.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/rel.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/jquery.autocomplete.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/lib/jquery.bgiframe.min.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/my_people_autocomplete.js"></script>
-		<script type="text/javascript" src="{% get_static_prefix %}js/lib/thickbox-compressed.js"></script>
+		<script type="text/javascript" src="{% get_static_prefix %}js/load_by_Mxhr.js"></script>
+		<script type="text/javascript">
+//			var all_scripts=new Array("js/textsizer.js", "js/rel.js", "js/jquery.autocomplete.js", "js/lib/jquery.bgiframe.min.js", "js/my_people_autocomplete.js", "js/lib/thickbox-compressed.js");
+	//			$.ajax({
+	//				type:"get",
+	//				url:"{% get_static_prefix %}js/textsizer.js",
+	//				dataType:"script"
+	//			});
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/jquery.js",null,true);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/rel.js",null,false);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/textsizer.js",null,false);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/jquery.autocomplete.js",null,true);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/lib/jquery.bgiframe.min.js",null,true);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/my_people_autocomplete.js",null,true);
+MXHR_Script.loadScriptXhrInjection("{% get_static_prefix %}js/lib/thickbox-compressed.js",null,false);
+	</script>
 	{% endblock %}
 	</head>	
 
@@ -93,3 +102,4 @@
 		</div>	
 	</body>
 </html>
+
