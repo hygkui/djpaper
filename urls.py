@@ -5,7 +5,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import login
 from views import about,show_meta,logout_page,current_datetime,hours_ahead,index
-from contact.views import contact,thanks
 from djpaper.views import show_all_papers,show_departments,print_deps,show_paper_by_id,\
 				show_all_people,show_people_by_id,register,search_paper,show_paper_by_tag,\
 				tag_add,paper_edit,pic_upload,abs_edit,author_add
@@ -39,8 +38,6 @@ urlpatterns = patterns('',
 	(r'^time/plus/(\d{1,2})/$',hours_ahead),
 	(r'^meta/$',show_meta),
 	(r'^search/$',search_paper),
-	(r'^contact/$',contact),
-	(r'^contact/thanks/$',thanks),
 	(r'^paper/$',show_all_papers),
 	(r'^paper/(\d+)/$',show_paper_by_id),
 	(r'^people/$',show_all_people),
