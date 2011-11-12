@@ -14,7 +14,7 @@
 	{% else %}
 		<ul>
 					{% if people.headshot %}	
-						{% load thumbnail %}
+						{% load thumbnail %} 
 						 <a href="{{ people.headshot.url}}" ><img src="{{ people.headshot.path|thumbnail:"width=200,height=200"  }}" class="headshot"/></a>
 					{% endif %}
 					<li>{{ people.name }}
